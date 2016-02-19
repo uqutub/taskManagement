@@ -7,7 +7,8 @@ import * as controller from "./memberController";
 
 //Get
 router.get('/', controller.Index_get);
-router.post('/', controller.MemberSave_post); 
+//router.post('/', controller.MemberSave_post); 
+router.post('/add', controller.MemberSave_post); 
 
 
 export = router;

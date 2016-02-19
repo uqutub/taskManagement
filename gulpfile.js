@@ -29,7 +29,9 @@ var path = {
     buildlib: 'client/build/lib',
     serverts: 'server/src/**/*.ts',
     serverbuild: 'server/build',
-    serverjs: 'server/src/**/*.js*'
+    serverjs: 'server/src/**/*.js*',
+    // excludeTyping: '!server/typings/**/*.d.ts',
+    // excludeNodeModules: '!node_modules/**/*.d.ts'
 };
 
 var serverCompilerOptions = { "target": "ES5", "module": "commonjs", "sourceMap": true };
@@ -52,6 +54,7 @@ var clientCompilerOptions = {
         "removeComments": false,
         "noImplicitAny": false
 };
+
 
 // Clean Server JS
 gulp.task('cleanServerJS', function () {
@@ -99,13 +102,13 @@ gulp.task('Servertranspile', function () {
 // TypeScript Client Transpile -- STEP 3 --
 gulp.task('Clienttranspile', function () {
     return gulp
-        .src(path.clientts)
+        .src([path.clientts, '!server/typings/tsd.d.ts', '!node_modules/angular2/typings/node/node.d.ts'])
         .pipe(typescript(clientCompilerOptions))
         .pipe(gulp.dest(path.buildapp));
 });
 
 // Build Project -- STEP 2 --
-gulp.task('build', sequence('clean', 'copy:assets', 'copy:index', 'copy:libs', ['Clienttranspile', 'Servertranspile', 'cleanServerJS']));
+gulp.task('build', sequence('clean', 'copy:assets', 'copy:index', 'copy:libs', 'Clienttranspile', 'Servertranspile', 'cleanServerJS'));
 
 // Default Task -- STEP 1 --
 gulp.task('default', ['build']);

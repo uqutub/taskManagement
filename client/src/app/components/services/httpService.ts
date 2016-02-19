@@ -1,11 +1,12 @@
 import {Injectable} from 'angular2/core';
 import { Http, Response, RequestOptions, Headers } from 'angular2/http'; //for http request (rest API)
 
+import {customServerResponseFunction as ServerResponse} from './../helpers/helpers';
 
 @Injectable()
 export class HttpService {
 
-    //static http: Http;
+    static http: Http;
 	
     //contructor
     constructor(public http: Http) {
@@ -19,7 +20,8 @@ export class HttpService {
 			}); //http.request - for get
 	} 	//getJSON
 
-	 addJSON(url: string, obj: Object, cb: (data) => void): void {
+	addJSON(url: string, obj: any, cb: ServerResponse): void {
+		 console.log('addJSON obj', obj)
 
 		let headers: Headers = new Headers();
 		headers.append('Content-Type', 'application/json');
@@ -34,7 +36,7 @@ export class HttpService {
         
 	} 	//addJSON
 
-	updateJSON(url: string, obj: Object, cb: (data) => void): void {
+	updateJSON(url: string, obj: Object, cb: ServerResponse): void {
 		let headers: Headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
@@ -48,7 +50,7 @@ export class HttpService {
 	}	//updateJSON
 
 
-	deleteJSON(url: string, cb: (data) => void): void {
+	deleteJSON(url: string, cb: ServerResponse): void {
 		this.http.delete(url)
 			.subscribe((res: Response) => {
 				cb(res.json());		//callBack		

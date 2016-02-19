@@ -1,0 +1,18 @@
+<form action="">
+	<div>
+		<label for="name">Name</label>
+		<input type="text" name="name" [(ngModel)]="name" ng placeholder="name" />
+	</div>
+	<div>
+		<label for="email">Email</label>
+		<input type="email" name="email" [(ngModel)]="email" placeholder="email" />
+	</div>
+	<div>
+		<label for="password">Password</label>
+		<input type="password" name="password" [(ngModel)]="password" placeholder="password"/>
+	</div>
+	<div>
+		<input type="submit" value="Signup"  (click)="signup()" />
+		<input type="submit" value="Forgot Password" />
+	</div>
+</form>

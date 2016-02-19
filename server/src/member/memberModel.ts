@@ -5,6 +5,12 @@ import mongoose = require('mongoose'); 	//import mongodb
 import * as helper from './../helpers/helper';
 //import q = require('q');				//if using promise pattren
 
+export interface IMember {
+    _id: string;
+    name: string;
+    email: string;
+}
+
 
 //////////////////// Mongoose ////////////////////////
 //Creating Schema for Member in MongoDB
@@ -14,11 +20,7 @@ let memberSchema = new mongoose.Schema({									//Create Schema for Member Coll
 });
 let memberCollection = mongoose.model("Members", memberSchema);			//Create Collection with the name of Members (in db it shows Todos)
 
-export interface IMember {
-    _id: string;
-    name: string;
-    email: string;
-}
+
 
 export class Member implements IMember {
     _id: string;

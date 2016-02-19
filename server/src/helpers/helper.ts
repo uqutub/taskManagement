@@ -1,3 +1,4 @@
+
 import * as _User from './../user/userModel';
 import * as _Member from './../member/memberModel';
 import * as _Task from './../task/taskModel';
@@ -5,6 +6,9 @@ import * as _Team from './../team/teamModel';
 
 //create type for callback function
 export type CallBackFunction = (error, data) => void;
+
+//for response of api
+export type customServerResponseObject = { 'success': boolean, 'data': any, 'error': any };
 
 
 let ownerMember: _Member.IMember;

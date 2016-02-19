@@ -2,6 +2,8 @@
 import express = require("express");
 import {Member, IMember} from "./memberModel";     //import Member Class
 
+import {customServerResponseObject} from './../helpers/helper';
+
 
 
 //Object
@@ -11,8 +13,17 @@ let Controller = {
         res.json({ 'hello': 'dafgfcsdsdsdfsdgdsfdfsdfdfk' });
     },
     MemberSave_post: (req: express.Request, res: express.Response) => {
-        //console.log(req.body);
-        res.json({ 'success': true, 'data': null });
+		var memberObj: IMember = req.body;
+		Member.create(memberObj, (error, data: IMember) => {
+			var responseObj: customServerResponseObject;
+			if (error) {
+				responseObj = { success: false,  data: null, error: error};
+				res.json(responseObj);
+			} else {
+				responseObj = { success: false, data: data, error: null };
+				res.json(responseObj);
+			}
+		}); //Member.create
     }
 };
 

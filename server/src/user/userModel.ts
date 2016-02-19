@@ -5,6 +5,14 @@ import mongoose = require('mongoose'); 	//import mongodb
 import * as helper from './../helpers/helper';
 //import q = require('q');				//if using promise pattren
 
+//interface of user
+export interface IUser {
+    _id: string;
+    name: string;
+    email: string;
+    password: string;
+}
+
 
 //////////////////// Mongoose ////////////////////////
 //Creating Schema for User in MongoDB
@@ -15,15 +23,6 @@ let userSchema = new mongoose.Schema({									//Create Schema for User Collecti
     dated: { type: Number, default: Date.now }
 });
 let UserCollection = mongoose.model("Users", userSchema);			//Create Collection with the name of Users (in db it shows Todos)
-
-//interface of user
-export interface IUser {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-}
-
 
 
 //user class
@@ -59,13 +58,21 @@ export class User implements IUser {
     
     //create user
     create(user: IUser, cb: helper.CallBackFunction): void {
-        let userObj = new UserCollection(user);
-        userObj.save(function(err, data: IUser) {
-            if (err) {
+        User.isUserExists(user.email, (err, data)=>{
+            if(err){
                 cb(err, null);
+            } else {
+                delete user._id;
+                let userObj = new UserCollection(user);
+                userObj.save((error, data: IUser) => {
+                    if (error) {
+                        cb(err, null);
+                    }
+                    cb(null, data);
+                });
             }
-            cb(null, data);
-        });
+        })
+        
     }; // create user
     
     // //static function for create user
