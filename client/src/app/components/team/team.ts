@@ -1,7 +1,7 @@
 import { Component } from "angular2/core";	//import component
 import config from "./../../config";		//app config for paths
-
-import {TeamService } from './teamService';
+import {TeamService, ITeam } from './teamService';
+import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 
 
 @Component({
@@ -19,9 +19,17 @@ export class Team {
     }
 
     getTeams(){
-        this.teamService.get((d) => {
-            this.teams = d.hello;
-            console.log('teams', this.teams);
+        var _team: ITeam;// = {};
+        this.teamService.createTeam(_team, (d: serverResponseObject) => {
+            if(d.success){
+                
+            } else {
+                
+            }
         });
+    }
+    
+    createTeam(){
+        
     }
 }

@@ -17,8 +17,7 @@ export class MemberService {
 	}
 
 	memberOnSignup(memberObj: IMember, cb: serverResponseFunction) {
-		this.httpService.addJSON('/api/user/signup', memberObj, (data: serverResponseObject) => {
-			console.log('singup return ', data);
+		this.httpService.addJSON('/api/member/add', memberObj, (data: serverResponseObject) => {
 			cb(data);
 		});
 	}

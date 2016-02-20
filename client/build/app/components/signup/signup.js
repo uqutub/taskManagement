@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", './signupService'], function(exports_1) {
+System.register(["angular2/core", "./../../config", './signupService', 'angular2/router'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", "./../../config", './signupService'], function
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, config_1, signupService_1;
+    var core_1, config_1, signupService_1, router_1;
     var Signup;
     return {
         setters:[
@@ -20,28 +20,37 @@ System.register(["angular2/core", "./../../config", './signupService'], function
             },
             function (signupService_1_1) {
                 signupService_1 = signupService_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
             }],
         execute: function() {
             Signup = (function () {
-                function Signup(signupService) {
+                //router: Router
+                function Signup(signupService, router) {
                     this.signupService = signupService;
+                    this.router = router;
                     //ctor
                 }
                 Signup.prototype.signup = function () {
+                    var _this = this;
                     var signupObj = { _id: '', email: this.email, password: this.password, name: this.name };
                     this.signupService.signup(signupObj, function (d) {
-                        console.log(d);
                         if (d.success) {
+                            _this.router.parent.navigate(['/Home']);
+                        }
+                        else {
                         }
                     });
                 };
                 Signup = __decorate([
+                    //for navigation
                     core_1.Component({
                         selector: 'signup',
                         templateUrl: config_1.default.componentPath + 'signup/signup.html',
                         providers: [signupService_1.SignupService],
                     }), 
-                    __metadata('design:paramtypes', [signupService_1.SignupService])
+                    __metadata('design:paramtypes', [signupService_1.SignupService, router_1.Router])
                 ], Signup);
                 return Signup;
             })();

@@ -51,7 +51,28 @@ var User = (function () {
                     cb(null, data);
                 });
             }
-        });
+        }); //User.isUserExists
+    };
+    ;
+    User.prototype.singin = function (singinObj, cb) {
+        UserCollection.findOne({ email: singinObj.email }, function (error, _user) {
+            console.log('user sigin model', JSON.stringify(error), JSON.stringify(_user));
+            if (error) {
+                //if error on finding user
+                cb(error, null);
+            }
+            else {
+                //if no error found
+                if (_user.password && _user.password === singinObj.password) {
+                    //checking if object is not empty and password matched
+                    cb(null, _user);
+                }
+                else {
+                    //if password not matched or user not found
+                    cb('No Member Found!', null);
+                }
+            }
+        }); //UserCollection.findOne
     };
     ;
     return User;

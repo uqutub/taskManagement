@@ -34,6 +34,18 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     console.log('getttting');
                     //return this.name;
                 };
+                TeamService.prototype.createTeam = function (team, cb) {
+                    this.httpService.addJSON('/api/team/create', team, function (resdata) {
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
                 TeamService.prototype.test = function () {
                     console.log('tesstsstst');
                     return 'ok fine working......';
@@ -48,3 +60,4 @@ System.register(['angular2/core', './../services/httpService'], function(exports
         }
     }
 });
+//var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 }; 

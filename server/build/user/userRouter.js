@@ -7,4 +7,5 @@ var controller = require("./userController");
 router.get('/', controller.Index_get);
 //router.post('/', controller.UserSave_post); 
 router.post('/signup', controller.UserSave_post);
+router.post('/signin', controller.UserSigin_post);
 module.exports = router;

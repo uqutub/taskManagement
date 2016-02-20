@@ -3,6 +3,8 @@ import config from "./../../config";
 import {SignupService, IUser} from './signupService';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 
+import {Router} from 'angular2/router';         //for navigation
+
 @Component({
     selector: 'signup',
     templateUrl: config.componentPath + 'signup/signup.html',
@@ -12,19 +14,21 @@ export class Signup implements IUser {
 	_id: string
 	email: string;
 	password: string;
-	name: string;
+    name: string;
+    //router: Router
 
-    constructor(public signupService: SignupService) {
+    constructor(public signupService: SignupService, public router: Router) {
 		//ctor
     }
-
+    
     signup() {
 		var signupObj: IUser = { _id: '', email: this.email, password: this.password, name: this.name };
 		this.signupService.signup(signupObj, (d: serverResponseObject) => {
-			console.log(d);
-			if(d.success){
-				
-			}
+            if (d.success) {
+                this.router.parent.navigate(['/Home']);
+            } else { 
+                //if not scueessfully singup then do what ever to do, even do double, but don't trouble your mother....
+            }
 		});
     }
 }

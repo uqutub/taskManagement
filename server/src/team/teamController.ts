@@ -10,11 +10,26 @@ let Controller = {
         //getting teamId and retrun team members
         res.json({ 'hello': 'dafgfcsdsdsdfsdgdsfdfsdfdfk' });
     },
-    TeamSave_post: (req: express.Request, res: express.Response) => {
+    TeamCreate_post: (req: express.Request, res: express.Response) => {
+        //console.log(req.body);
+        var team: ITeam = req.body;
+        var teamObject = new Team();          //initialized/create team Obj
+        teamObject.create(team, function(err, data) {    //creating team
+            if (err) {
+				res.json({ 'success': false, 'data': null, 'error': err });
+			} else {
+				res.json({ 'success': true, 'data': data, 'error': null });
+			}
+        });
+    },
+    AddMember_post: (req: express.Request, res: express.Response) => {
         //console.log(req.body);
         res.json({ 'success': true, 'data': null });
-    }
+    }, 
 };
 
 //export controller object
 export = Controller;
+
+
+

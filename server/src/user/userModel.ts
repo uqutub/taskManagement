@@ -13,6 +13,12 @@ export interface IUser {
     password: string;
 }
 
+export interface ISignin {
+    email: string;
+    password: string;
+    _id?: string;
+}
+
 
 //////////////////// Mongoose ////////////////////////
 //Creating Schema for User in MongoDB
@@ -58,8 +64,8 @@ export class User implements IUser {
     
     //create user
     create(user: IUser, cb: helper.CallBackFunction): void {
-        User.isUserExists(user.email, (err, data)=>{
-            if(err){
+        User.isUserExists(user.email, (err, data) => {
+            if (err) {
                 cb(err, null);
             } else {
                 delete user._id;
@@ -71,9 +77,27 @@ export class User implements IUser {
                     cb(null, data);
                 });
             }
-        })
-        
+        });     //User.isUserExists
     }; // create user
+    
+    singin(singinObj: ISignin, cb: helper.CallBackFunction): void { 
+        UserCollection.findOne({ email: singinObj.email }, (error, _user: ISignin) => {
+            console.log('user sigin model', JSON.stringify(error), JSON.stringify(_user));
+            if (error) {
+                //if error on finding user
+                cb(error, null);
+            } else { 
+                //if no error found
+                if (_user.password && _user.password === singinObj.password) {
+                    //checking if object is not empty and password matched
+                    cb(null, _user);
+                } else { 
+                    //if password not matched or user not found
+                    cb('No Member Found!', null);
+                }
+            }
+        }); //UserCollection.findOne
+    }; //singin
     
     // //static function for create user
     // static create(user: IUser, cb: helper.CallBackFunction): void {

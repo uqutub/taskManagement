@@ -25,8 +25,7 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     // do something with `userService` here	
                 }
                 MemberService.prototype.memberOnSignup = function (memberObj, cb) {
-                    this.httpService.addJSON('/api/user/signup', memberObj, function (data) {
-                        console.log('singup return ', data);
+                    this.httpService.addJSON('/api/member/add', memberObj, function (data) {
                         cb(data);
                     });
                 };

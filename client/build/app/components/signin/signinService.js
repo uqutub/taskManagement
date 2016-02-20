@@ -22,11 +22,28 @@ System.register(['angular2/core', './../services/httpService'], function(exports
             SigninService = (function () {
                 function SigninService(httpService) {
                     this.httpService = httpService;
+                    this._id = null; //for current userid
+                    this.name = null;
+                    this.email = null;
+                    this.isLoggedin = false; //
                     // do something with `userService` here	
                 }
                 SigninService.prototype.signin = function (signinObj, cb) {
-                    this.httpService.getJSON('/api/user/signin', function (data) {
-                        cb(data);
+                    var _this = this;
+                    this.httpService.addJSON('/api/user/signin', signinObj, function (d) {
+                        console.log('from server', d.data);
+                        if (d.success) {
+                            //if member created scueessfully
+                            _this._id = d.data._id; //assign current user id
+                            _this.name = d.data.name; //assign current user id
+                            _this.email = d.data.email; //assign current user id
+                            _this.isLoggedin = true; //status to loggedin true
+                            cb({ success: true, error: false, data: d.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
                     });
                 };
                 SigninService = __decorate([

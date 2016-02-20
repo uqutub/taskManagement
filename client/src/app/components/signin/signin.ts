@@ -1,7 +1,8 @@
 import { Component } from "angular2/core";
 import config from "./../../config";
-
+import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 import {SigninService, ISignin} from './signinService';
+import { Router } from "angular2/router";
 
 
 @Component({
@@ -13,14 +14,18 @@ export class Signin {
 	email: string;
 	password: string;
 
-    constructor(public signinService: SigninService) {
-    	//ctor
+    constructor(public signinService: SigninService, public router: Router) {
+        //ctor
     }
 
-    signin(){
-		var signinObj: ISignin = {email: this.email, password: this.password};
-		this.signinService.signin(signinObj, (d) => {
-			console.log(d);
-		});
-    }
+    signin(email: HTMLInputElement, password: HTMLInputElement){
+	   var signinObj: ISignin = {email: email.value, password: password.value};
+	   this.signinService.signin(signinObj, (d: serverResponseObject) => {
+           if (d.success) {
+               this.router.parent.navigate(['/Home']);
+           } else { 
+               //if not scueessfully singin then do what ever to do, even do double, but don't trouble your mother....
+           }
+	   });
+    } //signin
 }

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './../services/httpService'], function(exports_1) {
+System.register(['angular2/core', './../services/httpService', './../member/memberService'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(['angular2/core', './../services/httpService'], function(exports
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, httpService_1;
+    var core_1, httpService_1, memberService_1;
     var SignupService;
     return {
         setters:[
@@ -17,31 +17,43 @@ System.register(['angular2/core', './../services/httpService'], function(exports
             },
             function (httpService_1_1) {
                 httpService_1 = httpService_1_1;
+            },
+            function (memberService_1_1) {
+                memberService_1 = memberService_1_1;
             }],
         execute: function() {
             SignupService = (function () {
                 function SignupService(httpService, memberService) {
                     this.httpService = httpService;
                     this.memberService = memberService;
-                    // do something with `userService` here	
+                    // do something with `SignupService` here	
                 }
                 SignupService.prototype.signup = function (signupObj, cb) {
                     var _this = this;
                     this.httpService.addJSON('/api/user/signup', signupObj, function (resdata) {
-                        console.log('singup return ', resdata.data);
                         if (resdata.success) {
+                            //if successfully signup, now creating a member
                             var memberObj = resdata.data;
-                            _this.httpService.addJSON('/api/member/add', memberObj, function (d) {
-                                console.log('member return ', d.data);
+                            _this.memberService.memberOnSignup(memberObj, function (d) {
+                                if (d.success) {
+                                    //if member created scueessfully
+                                    cb({ success: true, error: false, data: d.data });
+                                }
+                                else {
+                                    //if member not created scueessfully
+                                    cb({ success: false, error: true, data: null });
+                                }
                             });
-                            cb(resdata.data);
                         }
-                        cb({ success: false, error: true, data: null });
+                        else {
+                            //if not successfully signup
+                            cb({ success: false, error: true, data: null });
+                        }
                     });
-                };
+                }; //signup function
                 SignupService = __decorate([
                     core_1.Injectable(), 
-                    __metadata('design:paramtypes', [httpService_1.HttpService, Object])
+                    __metadata('design:paramtypes', [httpService_1.HttpService, memberService_1.MemberService])
                 ], SignupService);
                 return SignupService;
             })();

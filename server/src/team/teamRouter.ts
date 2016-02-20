@@ -7,7 +7,8 @@ import * as controller from "./teamController";
 
 //Get
 router.get('/', controller.Index_get);
-router.post('/', controller.TeamSave_post);
+router.post('/create', controller.TeamCreate_post);
+router.post('/addMember', controller.AddMember_post);
 
 
 export = router;

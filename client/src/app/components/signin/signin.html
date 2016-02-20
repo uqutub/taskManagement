@@ -1,14 +1,14 @@
 <form action="">
 	<div>
 		<label for="email">Email</label>
-		<input type="text" name="email" placeholder="email" />
+		<input type="email" name="email" #email placeholder="email" />
 	</div>
 	<div>
 		<label for="password">Password</label>
-		<input type="password" name="password" placeholder="password"/>
+		<input type="password" name="password" #password placeholder="password"/>
 	</div>
 	<div>
-		<input type="submit" value="Login" />
+		<input type="submit" value="Login" (click)="signin(email, password);"/>
 		<input type="submit" value="Sign-up" />
 	</div>
 </form>
