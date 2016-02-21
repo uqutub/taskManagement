@@ -22,32 +22,18 @@ System.register(['angular2/core', './../services/httpService'], function(exports
             MemberService = (function () {
                 function MemberService(httpService) {
                     this.httpService = httpService;
-                    //test
-                    this._message = 'Hello Message';
-                    // do something with `userService` here	
+                    // do something with `userService` here
                 }
                 MemberService.prototype.memberOnSignup = function (memberObj, cb) {
                     this.httpService.addJSON('/api/member/add', memberObj, function (data) {
                         cb(data);
                     });
-                };
-                MemberService.prototype.setValues = function (name, email) {
-                    console.log('setting memberservice from singinService');
-                    this.name = name;
-                    this.email = email;
-                    console.log('name', this.name, 'email', this.email);
-                };
-                MemberService.prototype.onSingin = function () {
-                };
-                MemberService.prototype.getMessage = function () {
-                    return this._message;
-                };
-                ;
-                MemberService.prototype.setMessage = function (newMessage) {
-                    this._message = newMessage;
-                    console.log('set message', this._message);
-                };
-                ;
+                }; //memberOnSignup
+                MemberService.prototype.onSingin = function (member) {
+                    this._id = member._id;
+                    this.name = member.name;
+                    this.email = member.email;
+                }; //onSingin
                 MemberService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])
@@ -55,6 +41,7 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 return MemberService;
             })();
             exports_1("MemberService", MemberService);
+            ; //MemberService
             LoggedInMember = (function () {
                 function LoggedInMember() {
                 }

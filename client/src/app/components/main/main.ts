@@ -19,14 +19,14 @@ import { Task } from "./../task/task";
 })
 @RouteConfig([
     //{ path : "/",  redirectTo : ["Home"] },
-    { path : "/home", name: "Home", component : Home, useAsDefault : true},
-    { path : "/about", name: "About", component : About  },
-    { path: "/contact", name: "Contact", component: Contact },
-    { path: '/contactus', name: 'ContactUs', redirectTo: ['/contact'] },
-    { path: "/signin", name: "Signin", component: Signin },
-    { path: "/signup", name: "Signup", component: Signup },
-    { path: '/team', name: 'Team', component: Team },
-    { path: '/task', name: 'Task', component: Task },
+    { path: "/home",        name: "Home",        component: Home, useAsDefault : true},
+    { path: "/about",       name: "About",       component: About  },
+    { path: "/contact",     name: "Contact",     component: Contact },
+    { path: '/contactus',   name: 'ContactUs',  redirectTo: ['/contact'] },
+    { path: "/signin",      name: "Signin",      component: Signin },
+    { path: "/signup",      name: "Signup",      component: Signup },
+    { path: '/team',        name: 'Team',        component: Team },
+    { path: '/task',        name: 'Task',        component: Task },
 ])
 export class TaskApp{    
 	constructor(){

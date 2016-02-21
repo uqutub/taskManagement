@@ -38,21 +38,12 @@ System.register(['angular2/core', './../services/httpService', './../member/memb
                         console.log('from server', d.data);
                         if (d.success) {
                             //if member created scueessfully
-                            // //assiging member propperty on sigin for use as a current user/member...
-                            // this.memberService._id = d.data._id;       //assign current user id
-                            // this.memberService.name = d.data.name;       //assign current user id
-                            // this.memberService.email = d.data.email;       //assign current user id
-                            // this.memberService.isLoggedin = true;         //status to loggedin true 
-                            // console.log('this.memberservice ', this.memberService._id, this.memberService.name);
-                            // LoggedInMember._id = d.data._id;
-                            // LoggedInMember.name = d.data.name;       //assign current user id
-                            // LoggedInMember.email = d.data.email;       //assign current user id
-                            // LoggedInMember.isLoggedin = true;         //status to loggedin true
-                            // console.log('LoggedInMember ', LoggedInMember._id, LoggedInMember.name);
-                            //setting value from function......
-                            _this.memberService.setValues(d.data.name || 'my name test', d.data.email);
-                            console.log('setting varaibleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-                            _this.memberService.setMessage('I Love Pakistan');
+                            //assiging member propperty on sigin for use as a current user/member...
+                            _this.memberService._id = d.data._id; //assign current user id
+                            _this.memberService.name = d.data.name; //assign current user id
+                            _this.memberService.email = d.data.email; //assign current user id
+                            _this.memberService.isLoggedin = true; //status to loggedin true 
+                            console.log('this.memberservice ', _this.memberService._id, _this.memberService.name);
                             //also assigning sigin object not neccesary
                             _this._id = d.data._id; //assign current user id
                             _this.name = d.data.name; //assign current user id

@@ -8,7 +8,7 @@ import { ROUTER_PROVIDERS } from "angular2/router";  	//getting angular router c
 //import { ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from "angular2/router";  //with hash on url
 
 //Services
-import { SERVICE_PROVIDER } from "./components/services/services";
+import { SERVICE_PROVIDER, ServicesArray } from "./components/services/services";
 
 //Import Components
 import {TaskApp} from "./components/main/main";

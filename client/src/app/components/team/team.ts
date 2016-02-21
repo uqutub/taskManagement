@@ -1,4 +1,4 @@
-import { Component } from "angular2/core";	//import component
+import { Component, provide } from "angular2/core";	//import component
 import config from "./../../config";		//app config for paths
 import {TeamService} from './teamService';
 import { ITeam, TeamTaskObject, TeamModel } from './teamModel';
@@ -10,14 +10,15 @@ import {customServerResponseObject as serverResponseObject} from './../helpers/h
     selector: 'team',
     templateUrl: config.componentPath + 'team/team.html',
     //template: `	<h1>Teams Page</h1>`,
-    providers:  [TeamService, MemberService],
+    //providers:  [TeamService, MemberService],
+    //providers: [provide(TeamService, {useClass: TeamService}), provide(MemberService, {useClass: MemberService})]
 })
 export class Team {
     
     teams: ITeam[];
     
     //constructor
-    constructor(public teamService: TeamService, public memberService: MemberService) { 
+    constructor(private teamService: TeamService, private memberService: MemberService) { 
         console.log(this.memberService)
         
         let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
@@ -25,8 +26,6 @@ export class Team {
         
         let _owner2: IMember = { _id: LoggedInMember._id, name: LoggedInMember.name, email: LoggedInMember.email};
         console.log('_owner2', _owner2);
-        
-        console.log('new privcate variable', this.memberService.getMessage());
         
         //temp...
         this.getTeams();
@@ -37,8 +36,8 @@ export class Team {
        
     } //getTeams
     
-    createTeam(name: HTMLInputElement, description: HTMLInputElement){
-        let _owner: IMember = { _id: 'this.memberService._id', name: 'this.memberService.name', email: 'this.memberService.email'};
+    createTeam(name: HTMLInputElement, description: HTMLInputElement) {
+        let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
 
         let _members = []; 
         _members.push(_owner);
@@ -59,11 +58,15 @@ export class Team {
             if(d.success){
                 //if team scueessfully created
                 this.teams.push(d.data);
+                return false;
             } else {
                 //if not scueessfully created then do what ever to do, even do double, but don't trouble your mother....
+                return false;
                 
             }
         });
+        
+        
     } //createTeam
     
     addMember(){

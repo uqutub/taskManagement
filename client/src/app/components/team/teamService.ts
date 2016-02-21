@@ -12,7 +12,7 @@ export class TeamService {
     name: string = 'hello';
 
     //
-    constructor(public httpService: HttpService) {
+    constructor(private httpService: HttpService) {
         // do something with `TeamService` here	
     }
 
@@ -21,7 +21,6 @@ export class TeamService {
             console.log(data);
             cb(data);	//callback
         });
-        console.log('getttting');
         //return this.name;
     }
 
@@ -35,11 +34,6 @@ export class TeamService {
                 cb({ success: false, error: true, data: null });
             }
         });
-    }
-
-    test() {
-        console.log('tesstsstst')
-        return 'ok fine working......';
     }
 
 }

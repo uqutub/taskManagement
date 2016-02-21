@@ -5,7 +5,7 @@ import {customServerResponseObject as serverResponseObject, customServerResponse
 
 @Injectable()
 export class TaskService {
-    constructor(public httpService: HttpService) {
+    constructor(private httpService: HttpService) {
         // do something with `userService` here	
     }
 

@@ -38,7 +38,6 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     console.log('_owner', _owner);
                     var _owner2 = { _id: memberService_1.LoggedInMember._id, name: memberService_1.LoggedInMember.name, email: memberService_1.LoggedInMember.email };
                     console.log('_owner2', _owner2);
-                    console.log('new privcate variable', this.memberService.getMessage());
                     //temp...
                     this.getTeams();
                 }
@@ -47,7 +46,7 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                 }; //getTeams
                 Team.prototype.createTeam = function (name, description) {
                     var _this = this;
-                    var _owner = { _id: 'this.memberService._id', name: 'this.memberService.name', email: 'this.memberService.email' };
+                    var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
                     var _members = [];
                     _members.push(_owner);
                     var _team = new teamModel_1.TeamModel();
@@ -63,8 +62,11 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                         if (d.success) {
                             //if team scueessfully created
                             _this.teams.push(d.data);
+                            return false;
                         }
                         else {
+                            //if not scueessfully created then do what ever to do, even do double, but don't trouble your mother....
+                            return false;
                         }
                     });
                 }; //createTeam
@@ -74,8 +76,6 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     core_1.Component({
                         selector: 'team',
                         templateUrl: config_1.default.componentPath + 'team/team.html',
-                        //template: `	<h1>Teams Page</h1>`,
-                        providers: [teamService_1.TeamService, memberService_1.MemberService],
                     }), 
                     __metadata('design:paramtypes', [teamService_1.TeamService, memberService_1.MemberService])
                 ], Team);

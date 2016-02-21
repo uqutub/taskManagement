@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:27017/taskManagement');	//connect to mongo
 import userRoutes = require("./user/userRouter"); 		                            //Import/Initialze Router for index/homepage
 import memberRoutes = require("./member/memberRouter"); 		//Import/Initialze Router for index/homepage
 import teamRoutes = require("./team/teamRouter"); 			//Import/Initialze Router for todo
-//import taskRoutes = require("./task/taskRouter/"); 			//Import/Initialze Router for Quiz
+import taskRoutes = require("./task/taskRouter"); 			//Import/Initialze Router for Quiz
 
 //Start Express
 let app: express.Express = express();						//Start Express
@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 app.use('/api/member', memberRoutes);
 app.use('/api/team', teamRoutes);
-//app.use('/api/task', taskRoutes);
+app.use('/api/task', taskRoutes);
 
 // app.get('*', (req, res) => {										//catching unknown route
 //     //res.send("Error: 404");

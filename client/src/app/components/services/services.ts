@@ -13,3 +13,5 @@ export var SERVICE_PROVIDER: Array<any> = [
     provide(MemberService, { useClass: MemberService }),
 
 ];
+
+export let ServicesArray: Array<any>  = [SignupService, MemberService, TeamService, HttpService];

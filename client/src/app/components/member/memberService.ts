@@ -16,42 +16,23 @@ export class MemberService implements IMember {
     email: string;
     isLoggedin: boolean;    //
     
-	constructor(public httpService: HttpService) {
-		// do something with `userService` here	
+	constructor(private httpService: HttpService) {
+		// do something with `userService` here
 	}
 
 	memberOnSignup(memberObj: IMember, cb: serverResponseFunction) {
 		this.httpService.addJSON('/api/member/add', memberObj, (data: serverResponseObject) => {
 			cb(data);
 		});
-	}
+	} //memberOnSignup
     
-    setValues(name, email){
-        console.log('setting memberservice from singinService');
-        this.name = name;
-        this.email = email;
-        
-        console.log('name', this.name, 'email', this.email)
-    }
+    onSingin(member: IMember){
+        this._id = member._id;
+        this.name = member.name;
+        this.email = member.email;
+    } //onSingin
     
-    onSingin(){
-        
-    }
-    
-    //test
-      private _message = 'Hello Message';
-
-        getMessage(): string {
-            return this._message;
-        };
-
-        setMessage(newMessage: string): void {
-            this._message = newMessage;
-            console.log('set message', this._message);
-            
-        };
-        
-}
+}; //MemberService
 
 
 export class LoggedInMember {

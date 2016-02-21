@@ -13,13 +13,14 @@ let Controller = {
     TaskCreate_post: (req: express.Request, res: express.Response) => {
         //console.log(req.body);
         var _task: ITask = req.body;
+        delete _task._id;
         var taskObject = new Task();
         taskObject.create(_task, (err, data: ITask) => {
-              if (err) {
-				res.json({ 'success': false, 'data': null, 'error': err });
-			} else {
-				res.json({ 'success': true, 'data': data, 'error': null });
-			}
+            if (err) {
+                res.json({ 'success': false, 'data': null, 'error': err });
+            } else {
+                res.json({ 'success': true, 'data': data, 'error': null });
+            }
         })
     } //TaskCreate_post
 };

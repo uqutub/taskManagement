@@ -14,7 +14,7 @@ let Controller = {
         console.log('team create post', req.body);
         var team: ITeam = req.body;
         var teamObject = new Team();          //initialized/create team Obj
-        teamObject.create(team, function(err, data) {    //creating team
+        teamObject.create(team, function(err, data: ITeam) {    //creating team
             if (err) {
 				res.json({ 'success': false, 'data': null, 'error': err });
 			} else {

@@ -1,6 +1,6 @@
 System.register(['angular2/core', './../signup/signupService', './../member/memberService', './../team/teamService', './httpService'], function(exports_1) {
     var core_1, signupService_1, memberService_1, teamService_1, httpService_1;
-    var SERVICE_PROVIDER;
+    var SERVICE_PROVIDER, ServicesArray;
     return {
         setters:[
             function (core_1_1) {
@@ -25,6 +25,7 @@ System.register(['angular2/core', './../signup/signupService', './../member/memb
                 core_1.provide(signupService_1.SignupService, { useClass: signupService_1.SignupService }),
                 core_1.provide(memberService_1.MemberService, { useClass: memberService_1.MemberService }),
             ]);
+            exports_1("ServicesArray", ServicesArray = [signupService_1.SignupService, memberService_1.MemberService, teamService_1.TeamService, httpService_1.HttpService]);
         }
     }
 });

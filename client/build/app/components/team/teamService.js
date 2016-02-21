@@ -31,7 +31,6 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                         console.log(data);
                         cb(data); //callback
                     });
-                    console.log('getttting');
                     //return this.name;
                 };
                 TeamService.prototype.createTeam = function (team, cb) {
@@ -45,10 +44,6 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                             cb({ success: false, error: true, data: null });
                         }
                     });
-                };
-                TeamService.prototype.test = function () {
-                    console.log('tesstsstst');
-                    return 'ok fine working......';
                 };
                 TeamService = __decorate([
                     core_1.Injectable(), 

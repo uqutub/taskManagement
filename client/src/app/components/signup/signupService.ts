@@ -14,7 +14,7 @@ export interface IUser {
 @Injectable()
 export class SignupService {
 
-	constructor(public httpService: HttpService, public memberService: MemberService) {
+	constructor(private httpService: HttpService, private memberService: MemberService) {
 		// do something with `SignupService` here	
 	}
 
