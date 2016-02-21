@@ -9,7 +9,7 @@ var teamSchema = new mongoose.Schema({
     dated: { type: Number, default: Date.now },
     owner: { _id: String, name: String, email: String },
     members: { type: [{ _id: String, name: String, email: String }], default: [] },
-    taskIds: { type: [String], default: [] },
+    tasks: { type: [{ _id: String, name: String }], default: [] },
     active: Number,
 });
 var teamCollection = mongoose.model("Teams", teamSchema); //Create Collection with the name of Teams (in db it shows Teams)

@@ -7,7 +7,7 @@ import * as controller from "./taskController";
 
 //Get
 router.get('/', controller.Index_get);
-router.post('/', controller.TaskSave_post);
+router.post('/create', controller.TaskCreate_post);
 
 
 export = router;

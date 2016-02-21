@@ -14,7 +14,7 @@ let teamSchema = new mongoose.Schema({									               //Create Schema fo
     dated: { type: Number, default: Date.now },
     owner: { _id: String, name: String, email: String },
     members: { type: [{ _id: String, name: String, email: String }], default: [] },           //Array of user Object
-    taskIds: { type: [String], default: [] },
+    tasks: { type: [{_id: String, name: String}], default: [] },
     active: Number,             //1 active, 0 not active
 }); 
 let teamCollection = mongoose.model("Teams", teamSchema);			//Create Collection with the name of Teams (in db it shows Teams)
@@ -26,9 +26,13 @@ export interface ITeam {
     dated?: number;
 	owner: IMember;
     members?: IMember[];
-    taskIds?: string[];
-    active: Number;
-    
+    tasks?: TeamTaskObject[];
+    active: Number;   
+}
+
+export type TeamTaskObject = {
+    _id: string,
+    name: string
 }
 
 //Team Class
@@ -39,7 +43,7 @@ export class Team implements ITeam{
     dated: number;
 	owner: IMember;
     members: IMember[];
-    taskIds: string[];
+    tasks: TeamTaskObject[];
     active: Number;
     
 

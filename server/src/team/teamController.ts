@@ -11,7 +11,7 @@ let Controller = {
         res.json({ 'hello': 'dafgfcsdsdsdfsdgdsfdfsdfdfk' });
     },
     TeamCreate_post: (req: express.Request, res: express.Response) => {
-        //console.log(req.body);
+        console.log('team create post', req.body);
         var team: ITeam = req.body;
         var teamObject = new Team();          //initialized/create team Obj
         teamObject.create(team, function(err, data) {    //creating team

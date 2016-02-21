@@ -5,5 +5,5 @@ var router = express.Router();
 var controller = require("./taskController");
 //Get
 router.get('/', controller.Index_get);
-router.post('/', controller.TaskSave_post);
+router.post('/create', controller.TaskCreate_post);
 module.exports = router;

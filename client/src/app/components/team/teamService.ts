@@ -1,18 +1,10 @@
 import {Injectable} from 'angular2/core';
 import { HttpService } from './../services/httpService';			//my http service
 import {IMember} from './../member/memberService';
+import {ITeam} from './teamModel';
 import {customServerResponseObject as serverResponseObject, customServerResponseFunction as serverResponseFunction} from './../helpers/helpers';
 
-export interface ITeam {
-    _id?: string;
-    name: string;
-    description: string;
-    dated?: number;
-    owner: IMember;
-    members?: IMember[];
-    taskIds?: string[];
-    active: Number;
-}
+
 
 @Injectable()
 export class TeamService {

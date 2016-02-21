@@ -9,7 +9,7 @@ System.register(['angular2/core', './../services/httpService'], function(exports
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, httpService_1;
-    var MemberService;
+    var MemberService, LoggedInMember;
     return {
         setters:[
             function (core_1_1) {
@@ -22,6 +22,8 @@ System.register(['angular2/core', './../services/httpService'], function(exports
             MemberService = (function () {
                 function MemberService(httpService) {
                     this.httpService = httpService;
+                    //test
+                    this._message = 'Hello Message';
                     // do something with `userService` here	
                 }
                 MemberService.prototype.memberOnSignup = function (memberObj, cb) {
@@ -29,6 +31,23 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                         cb(data);
                     });
                 };
+                MemberService.prototype.setValues = function (name, email) {
+                    console.log('setting memberservice from singinService');
+                    this.name = name;
+                    this.email = email;
+                    console.log('name', this.name, 'email', this.email);
+                };
+                MemberService.prototype.onSingin = function () {
+                };
+                MemberService.prototype.getMessage = function () {
+                    return this._message;
+                };
+                ;
+                MemberService.prototype.setMessage = function (newMessage) {
+                    this._message = newMessage;
+                    console.log('set message', this._message);
+                };
+                ;
                 MemberService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])
@@ -36,6 +55,16 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 return MemberService;
             })();
             exports_1("MemberService", MemberService);
+            LoggedInMember = (function () {
+                function LoggedInMember() {
+                }
+                LoggedInMember._id = null; //for current userid
+                LoggedInMember.name = null;
+                LoggedInMember.email = null;
+                LoggedInMember.isLoggedin = false; //
+                return LoggedInMember;
+            })();
+            exports_1("LoggedInMember", LoggedInMember);
         }
     }
 });

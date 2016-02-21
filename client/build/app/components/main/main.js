@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", "angular2/router", "./../home/home", "./../about/about", "./../contact/contact", "./../signin/signin", "./../signup/signup", "./../team/team"], function(exports_1) {
+System.register(["angular2/core", "./../../config", "angular2/router", "./../home/home", "./../about/about", "./../contact/contact", "./../signin/signin", "./../signup/signup", "./../team/team", "./../task/task"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", "./../../config", "angular2/router", "./../hom
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, config_1, router_1, home_1, about_1, contact_1, signin_1, signup_1, team_1;
+    var core_1, config_1, router_1, home_1, about_1, contact_1, signin_1, signup_1, team_1, task_1;
     var TaskApp;
     return {
         setters:[
@@ -38,6 +38,9 @@ System.register(["angular2/core", "./../../config", "angular2/router", "./../hom
             },
             function (team_1_1) {
                 team_1 = team_1_1;
+            },
+            function (task_1_1) {
+                task_1 = task_1_1;
             }],
         execute: function() {
             TaskApp = (function () {
@@ -58,6 +61,7 @@ System.register(["angular2/core", "./../../config", "angular2/router", "./../hom
                         { path: "/signin", name: "Signin", component: signin_1.Signin },
                         { path: "/signup", name: "Signup", component: signup_1.Signup },
                         { path: '/team', name: 'Team', component: team_1.Team },
+                        { path: '/task', name: 'Task', component: task_1.Task },
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], TaskApp);

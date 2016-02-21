@@ -36,13 +36,13 @@ export interface ITask {
 	owner: IMember;
 	//members: IMember[];
     active: number;                             //1 active, 0 not active
-    comments?: Comment[];
+    comments?: IComment[];
 }
 
 export interface IComment {
 	dated: number;
 	comment: string;
-	member: IMember;
+	commentBy: IMember;
 }
 
 export class Task implements ITask {
@@ -54,7 +54,7 @@ export class Task implements ITask {
 	owner: IMember;
 	//members: IMember[];
     active: number;                             //1 active, 0 not active
-	comments: Comment[];
+	comments: IComment[];
 
 	constructor(task?: ITask) {
         if (task) { 
@@ -81,7 +81,7 @@ export class Task implements ITask {
         });
      }
 	
-	addComment(comment: Comment) {
+	addComment(comment: IComment) {
 		this.comments.push(comment);
 	}
     

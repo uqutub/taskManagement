@@ -1,0 +1,61 @@
+import { Component } from "angular2/core";	//import component
+import config from "./../../config";		//app config for paths
+import {TeamService, ITeam, TeamTaskObject } from './teamService';
+import {IMember, MemberService } from './../member/memberService';
+import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
+
+
+@Component({
+    selector: 'team',
+    templateUrl: config.componentPath + 'team/team.html',
+    //template: `	<h1>Teams Page</h1>`,
+    providers:  [TeamService],
+})
+export class Team implements ITeam {
+    _id: string;
+    name: string;
+    description: string;
+    dated: number;
+    owner: IMember;
+    members: IMember[];
+    tasks: TeamTaskObject[];
+    active: number;
+    
+    teams: ITeam[];
+    
+    //constructor
+    constructor(public teamService: TeamService, public memberService: MemberService) { }
+
+    getTeams(){
+        this.teams = [];    //teams Array for current user...
+       
+    } //getTeams
+    
+    createTeam(name: HTMLInputElement, description: HTMLInputElement){
+        let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
+        let _members = []; 
+        _members.push(_owner);
+        let _team: ITeam = {
+                        name: name.value,
+                        description: description.value,
+                        owner: _owner,
+                        members: _members,
+                        tasks: [],
+                        active: 1
+                    };
+        this.teamService.createTeam(_team, (d: serverResponseObject) => {
+            console.log('team return, ', JSON.stringify(d.data));
+            if(d.success){
+                //if team scueessfully created
+                this.teams.push(d.data);
+            } else {
+                //if not scueessfully created then do what ever to do, even do double, but don't trouble your mother....
+                
+            }
+        });
+    } //createTeam
+    
+    addMember(){
+        
+    } //addMember
+}

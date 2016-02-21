@@ -10,6 +10,7 @@ import { Contact } from "./../contact/contact";
 import { Signin } from "./../signin/signin";
 import { Signup } from "./../signup/signup";
 import { Team } from "./../team/team";
+import { Task } from "./../task/task";
 
 @Component({
     selector : 'task-app',
@@ -25,6 +26,7 @@ import { Team } from "./../team/team";
     { path: "/signin", name: "Signin", component: Signin },
     { path: "/signup", name: "Signup", component: Signup },
     { path: '/team', name: 'Team', component: Team },
+    { path: '/task', name: 'Task', component: Task },
 ])
 export class TaskApp{    
 	constructor(){

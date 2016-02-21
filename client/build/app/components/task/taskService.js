@@ -24,8 +24,19 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     this.httpService = httpService;
                     // do something with `userService` here	
                 }
+                TaskService.prototype.createTask = function (_task, cb) {
+                    this.httpService.addJSON('/api/task/create', _task, function (resdata) {
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
                 TaskService = __decorate([
-                    //my http service
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])
                 ], TaskService);

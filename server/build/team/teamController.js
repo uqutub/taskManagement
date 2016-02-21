@@ -6,7 +6,7 @@ var Controller = {
         res.json({ 'hello': 'dafgfcsdsdsdfsdgdsfdfsdfdfk' });
     },
     TeamCreate_post: function (req, res) {
-        //console.log(req.body);
+        console.log('team create post', req.body);
         var team = req.body;
         var teamObject = new teamModel_1.Team(); //initialized/create team Obj
         teamObject.create(team, function (err, data) {

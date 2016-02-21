@@ -1,1 +1,23 @@
-task.html
+<h1>Task Page</h1>
+
+<form action="">
+	<div>
+		<label for="name">Task Name</label>
+		<input type="text" name="name" #name ng placeholder="name" />
+	</div>
+	<div>
+		<label for="description">Description</label>
+		<input type="text" name="description" #description placeholder="description" />
+	</div>
+    <div>
+		<label for="team">Select Team</label>
+        <select name="team" id="team" #tasks>
+            <option value="teamid">team A</option>
+        </select>
+	</div>
+	<div>
+		<input type="submit" value="Create"  (click)="creatTask(name, description)" />
+		<input type="submit" value="Cancel" />
+	</div>
+</form>
+

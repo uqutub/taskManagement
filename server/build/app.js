@@ -40,8 +40,8 @@ app.get('/', function (req, res) {
 });
 app.use('/api/user', userRoutes);
 app.use('/api/member', memberRoutes);
-app.use('/team', teamRoutes);
-//app.use('/task', taskRoutes);
+app.use('/api/team', teamRoutes);
+//app.use('/api/task', taskRoutes);
 // app.get('*', (req, res) => {										//catching unknown route
 //     //res.send("Error: 404");
 //     res.render('shared/_layout', {
