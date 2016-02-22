@@ -34,6 +34,16 @@ var Task = (function () {
             this.comments = (task.comments) ? task.comments : [];
         }
     }
+    Task.prototype.getTasks = function (userid, cb) {
+        taskCollection.find({ 'owner._id': userid }, function (err, tasks) {
+            if (err) {
+                cb(err, null);
+            }
+            else {
+                cb(null, tasks);
+            }
+        });
+    };
     Task.prototype.create = function (task, cb) {
         var taskObj = new taskCollection(task);
         taskObj.save(function (err, data) {
@@ -45,8 +55,15 @@ var Task = (function () {
             }
         });
     };
-    Task.prototype.addComment = function (comment) {
-        this.comments.push(comment);
+    Task.prototype.addComment = function (taskid, comment, cb) {
+        taskCollection.findByIdAndUpdate(taskid, { $push: { "comments": comment } }, function (err, data) {
+            if (err) {
+                cb(err, null);
+            }
+            else {
+                cb(null, data);
+            }
+        });
     };
     // addMember(member: IMember, cb: _helper.CallBackFunction){
     //     //this.members.push(member);

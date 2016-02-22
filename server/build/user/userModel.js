@@ -56,7 +56,6 @@ var User = (function () {
     ;
     User.prototype.singin = function (singinObj, cb) {
         UserCollection.findOne({ email: singinObj.email }, function (error, _user) {
-            console.log('user sigin model', JSON.stringify(error), JSON.stringify(_user));
             if (error) {
                 //if error on finding user
                 cb(error, null);

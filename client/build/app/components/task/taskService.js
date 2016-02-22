@@ -24,6 +24,22 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     this.httpService = httpService;
                     // do something with `userService` here	
                 }
+                ;
+                TaskService.prototype.getTasks = function (userid, cb) {
+                    this.httpService.getJSON('/api/task/' + userid, function (resdata) {
+                        console.log('from taks server', resdata.data);
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
+                ;
+                //createTask
                 TaskService.prototype.createTask = function (_task, cb) {
                     this.httpService.addJSON('/api/task/create', _task, function (resdata) {
                         if (resdata.success) {
@@ -36,6 +52,21 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                         }
                     });
                 };
+                ;
+                TaskService.prototype.addComment = function (taskid, comment, cb) {
+                    this.httpService.updateJSON('/api/task/comment/' + taskid, comment, function (resdata) {
+                        console.log('from server..taskService', resdata);
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
+                ;
                 TaskService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])

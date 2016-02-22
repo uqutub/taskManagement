@@ -6,7 +6,7 @@ var router: express.Router = express.Router();
 import * as controller from "./teamController";
 
 //Get
-router.get('/', controller.Index_get);
+router.get('/:userid', controller.Index_get);
 router.post('/create', controller.TeamCreate_post);
 router.post('/addMember', controller.AddMember_post);
 

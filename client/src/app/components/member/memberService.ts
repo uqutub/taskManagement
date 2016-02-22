@@ -32,6 +32,10 @@ export class MemberService implements IMember {
         this.email = member.email;
     } //onSingin
     
+    getCurrentMember(){
+        return {_id: this._id, name: this.name, email: this.email};
+    }
+    
 }; //MemberService
 
 

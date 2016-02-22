@@ -1,4 +1,4 @@
-System.register(["angular2/core", './taskService', './taskModel', './../member/memberService', "./../../config"], function(exports_1) {
+System.register(["angular2/core", './taskService', './taskModel', './../member/memberService', "./../../config", './list/taskList'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, taskService_1, taskModel_1, memberService_1, config_1;
+    var core_1, taskService_1, taskModel_1, memberService_1, config_1, taskList_1;
     var Task;
     return {
         setters:[
@@ -26,13 +26,32 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
             },
             function (config_1_1) {
                 config_1 = config_1_1;
+            },
+            function (taskList_1_1) {
+                taskList_1 = taskList_1_1;
             }],
         execute: function() {
             Task = (function () {
+                //constructor
                 function Task(taskService, memberService) {
                     this.taskService = taskService;
                     this.memberService = memberService;
+                    //loading tasks
+                    this.getTasks();
                 }
+                ;
+                Task.prototype.getTasks = function () {
+                    var _this = this;
+                    this.taskz = [];
+                    this.taskService.getTasks(this.memberService._id, function (d) {
+                        if (d.success) {
+                            _this.taskz = d.data;
+                        }
+                        else {
+                        }
+                    });
+                };
+                ;
                 Task.prototype.creatTask = function (name, description) {
                     var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
                     var _task = new taskModel_1.TaskModel();
@@ -44,8 +63,9 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                     _task.comments = [];
                     _task.status = 1;
                     this.taskService.createTask(_task, function (d) {
-                        console.log('task retun', JSON.stringify(d.data), JSON.stringify(d.error));
                         if (d.success) {
+                            // on scueessfully task inserted
+                            this.taskz.push(d.data);
                         }
                         else {
                         }
@@ -53,9 +73,10 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                 }; //create task
                 Task = __decorate([
                     core_1.Component({
-                        selector: 'task',
+                        selector: 'task-component',
                         templateUrl: config_1.default.componentPath + 'task/task.html',
-                        providers: [taskService_1.TaskService]
+                        providers: [taskService_1.TaskService],
+                        directives: [taskList_1.TaskList]
                     }), 
                     __metadata('design:paramtypes', [taskService_1.TaskService, memberService_1.MemberService])
                 ], Task);

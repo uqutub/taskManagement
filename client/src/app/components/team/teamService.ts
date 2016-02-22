@@ -16,13 +16,17 @@ export class TeamService {
         // do something with `TeamService` here	
     }
 
-    get(cb?: (d) => void) {
-        this.httpService.getJSON('/api/member/', function(data: serverResponseObject) {
-            console.log(data);
-            cb(data);	//callback
+    getTeams(userid: string, cb?: (d) => void) {
+        this.httpService.getJSON('/api/team/'+userid, function(resdata: serverResponseObject) {
+            if (resdata.success) {
+                //if member created scueessfully
+                cb({ success: true, error: false, data: resdata.data });
+            } else {
+                //if member not created scueessfully
+                cb({ success: false, error: true, data: null });
+            }
         });
-        //return this.name;
-    }
+    };
 
     createTeam(team: ITeam, cb: serverResponseFunction) {
         this.httpService.addJSON('/api/team/create', team, (resdata: serverResponseObject) => {

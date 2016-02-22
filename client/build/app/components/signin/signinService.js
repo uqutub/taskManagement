@@ -35,7 +35,6 @@ System.register(['angular2/core', './../services/httpService', './../member/memb
                 SigninService.prototype.signin = function (signinObj, cb) {
                     var _this = this;
                     this.httpService.addJSON('/api/user/signin', signinObj, function (d) {
-                        console.log('from server', d.data);
                         if (d.success) {
                             //if member created scueessfully
                             //assiging member propperty on sigin for use as a current user/member...

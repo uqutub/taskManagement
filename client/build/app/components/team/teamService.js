@@ -26,13 +26,19 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     this.name = 'hello';
                     // do something with `TeamService` here	
                 }
-                TeamService.prototype.get = function (cb) {
-                    this.httpService.getJSON('/api/member/', function (data) {
-                        console.log(data);
-                        cb(data); //callback
+                TeamService.prototype.getTeams = function (userid, cb) {
+                    this.httpService.getJSON('/api/team/' + userid, function (resdata) {
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
                     });
-                    //return this.name;
                 };
+                ;
                 TeamService.prototype.createTeam = function (team, cb) {
                     this.httpService.addJSON('/api/team/create', team, function (resdata) {
                         if (resdata.success) {

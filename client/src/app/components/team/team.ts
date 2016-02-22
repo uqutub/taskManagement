@@ -4,11 +4,13 @@ import {TeamService} from './teamService';
 import { ITeam, TeamTaskObject, TeamModel } from './teamModel';
 import { IMember, MemberService, LoggedInMember } from './../member/memberService';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
+import {TeamRender} from './teamRender';
 
 
 @Component({
     selector: 'team',
     templateUrl: config.componentPath + 'team/team.html',
+    directives: [TeamRender],
     //template: `	<h1>Teams Page</h1>`,
     //providers:  [TeamService, MemberService],
     //providers: [provide(TeamService, {useClass: TeamService}), provide(MemberService, {useClass: MemberService})]
@@ -18,23 +20,25 @@ export class Team {
     teams: ITeam[];
     
     //constructor
-    constructor(private teamService: TeamService, private memberService: MemberService) { 
-        console.log(this.memberService)
-        
+    constructor(private teamService: TeamService, private memberService: MemberService) {
+        //getting current loggedin user/member
         let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
-        console.log('_owner', _owner);
         
-        let _owner2: IMember = { _id: LoggedInMember._id, name: LoggedInMember.name, email: LoggedInMember.email};
-        console.log('_owner2', _owner2);
-        
-        //temp...
+        //get teams...
         this.getTeams();
     }
 
     getTeams(){
+        this.teamService.getTeams(this.memberService._id, (d: serverResponseObject)=>{
+            if(d.success){
+                console.log('teams array', d.data);
+               this.teams = d.data; 
+            } else {
+                
+            }
+        });
         this.teams = [];    //teams Array for current user...
-       
-    } //getTeams
+    }; //getTeams
     
     createTeam(name: HTMLInputElement, description: HTMLInputElement) {
         let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
@@ -50,26 +54,20 @@ export class Team {
         _team.tasks = [];
         _team.active = 1
         
-        console.log('_team obj', _team);
-        
-        
         this.teamService.createTeam(_team, (d: serverResponseObject) => {
             console.log('team return, ', JSON.stringify(d.data));
             if(d.success){
                 //if team scueessfully created
                 this.teams.push(d.data);
-                return false;
             } else {
                 //if not scueessfully created then do what ever to do, even do double, but don't trouble your mother....
-                return false;
-                
             }
         });
         
-        
-    } //createTeam
+        return false;
+    }; //createTeam
     
     addMember(){
         
-    } //addMember
+    }; //addMember
 }

@@ -57,8 +57,8 @@ export class Team implements ITeam{
         }
     }
     
-    get(cb: _helper.CallBackFunction) { 
-        teamCollection.find({}, function(err, teams) { 
+    getTeams(userid: string, cb: _helper.CallBackFunction) { 
+        teamCollection.find({'owner._id': userid}, function(err, teams) { 
             if (err) {
                 cb(err, null);
             } else { 
@@ -88,8 +88,8 @@ export class Team implements ITeam{
         });
     }
     
-    assignTask(_taskId: string, cb: _helper.CallBackFunction) { 
-        teamCollection.findByIdAndUpdate(this._id, { $push: { taskIds: _taskId } }, function(err, team: ITeam) {
+    assignTask(_taskObj: TeamTaskObject, cb: _helper.CallBackFunction) { 
+        teamCollection.findByIdAndUpdate(this._id, { $push: { tasks: _taskObj } }, function(err, team: ITeam) {
              if (err) {
                 cb(err, null);
             } else { 

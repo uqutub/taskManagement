@@ -1,0 +1,21 @@
+<td>   
+    {{task | json}} 
+    <label>{{task.name}}</label>
+    <label>{{task.description}}</label>
+    <ul>
+        <li class="yahoo" *ngFor="#c of task.comments" [comment]="c">  
+        </li>
+    </ul>
+    <div>
+        <form action="">
+            <label for="comment">Please Comment</label>
+            <input type="text" name="description" placeholder="description" #cmnt />
+            <input type="button" name="addComment_Btn"  value="Add" (click)="addComment(cmnt)"/>
+        </form>
+    </div>
+</td>
+<td>
+    <button type="button">Edit</button> 
+    <strong>|</strong> 
+    <button type="button">Delete</button>
+</td>

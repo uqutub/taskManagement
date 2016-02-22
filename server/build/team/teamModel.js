@@ -24,8 +24,8 @@ var Team = (function () {
             this.members = team.members;
         }
     }
-    Team.prototype.get = function (cb) {
-        teamCollection.find({}, function (err, teams) {
+    Team.prototype.getTeams = function (userid, cb) {
+        teamCollection.find({ 'owner._id': userid }, function (err, teams) {
             if (err) {
                 cb(err, null);
             }
@@ -55,8 +55,8 @@ var Team = (function () {
             }
         });
     };
-    Team.prototype.assignTask = function (_taskId, cb) {
-        teamCollection.findByIdAndUpdate(this._id, { $push: { taskIds: _taskId } }, function (err, team) {
+    Team.prototype.assignTask = function (_taskObj, cb) {
+        teamCollection.findByIdAndUpdate(this._id, { $push: { tasks: _taskObj } }, function (err, team) {
             if (err) {
                 cb(err, null);
             }

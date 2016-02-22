@@ -119,8 +119,9 @@ function CreateTeamAndAssignTask() {
         } else {
             console.log('ScueessFully Team created!');
             teamObject._id = d._id;
+            var _teamTaskObj: _Team.TeamTaskObject = {_id: taskForAddMember._id, name: taskForAddMember.name};
             //after create team assignTask to that team -- START --
-            teamObject.assignTask(taskForAddMember._id, function(e, d) {
+            teamObject.assignTask(_teamTaskObj , function(e, d) {
                 if (e) {
                     console.log('Error!.. on Assigned Team!');
                     //console.log(e);

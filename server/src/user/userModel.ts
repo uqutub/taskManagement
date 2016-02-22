@@ -82,7 +82,6 @@ export class User implements IUser {
     
     singin(singinObj: ISignin, cb: helper.CallBackFunction): void { 
         UserCollection.findOne({ email: singinObj.email }, (error, _user: ISignin) => {
-            console.log('user sigin model', JSON.stringify(error), JSON.stringify(_user));
             if (error) {
                 //if error on finding user
                 cb(error, null);

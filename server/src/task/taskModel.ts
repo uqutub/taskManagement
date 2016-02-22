@@ -70,6 +70,16 @@ export class Task implements ITask {
         }
     }
     
+    getTasks(userid: string, cb: _helper.CallBackFunction){
+         taskCollection.find({'owner._id': userid}, function(err, tasks) { 
+            if (err) {
+                cb(err, null);
+            } else { 
+                cb(null, tasks);
+            }
+        })
+    }
+    
     create(task: ITask, cb: _helper.CallBackFunction) {
         let taskObj = new taskCollection(task);
         taskObj.save(function(err, data: ITask) {
@@ -81,8 +91,14 @@ export class Task implements ITask {
         });
      }
 	
-	addComment(comment: IComment) {
-		this.comments.push(comment);
+	addComment(taskid: string, comment: IComment, cb: _helper.CallBackFunction) {
+		taskCollection.findByIdAndUpdate(taskid, {$push: {"comments": comment}},(err, data: ITask) => {
+             if (err) {
+                cb(err, null);
+            } else { 
+                cb(null, data);
+            }
+        });
 	}
     
     // addMember(member: IMember, cb: _helper.CallBackFunction){

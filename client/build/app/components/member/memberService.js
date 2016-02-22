@@ -34,6 +34,9 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     this.name = member.name;
                     this.email = member.email;
                 }; //onSingin
+                MemberService.prototype.getCurrentMember = function () {
+                    return { _id: this._id, name: this.name, email: this.email };
+                };
                 MemberService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])

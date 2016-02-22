@@ -21,7 +21,6 @@ export class SigninService {
 
     signin(signinObj: ISignin, cb: serverResponseFunction) {
         this.httpService.addJSON('/api/user/signin', signinObj, (d: serverResponseObject) => {
-            console.log('from server', d.data);
             if (d.success) {
                 //if member created scueessfully
                 

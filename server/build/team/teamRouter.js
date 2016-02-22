@@ -4,7 +4,7 @@ var router = express.Router();
 //import controller
 var controller = require("./teamController");
 //Get
-router.get('/', controller.Index_get);
+router.get('/:userid', controller.Index_get);
 router.post('/create', controller.TeamCreate_post);
 router.post('/addMember', controller.AddMember_post);
 module.exports = router;

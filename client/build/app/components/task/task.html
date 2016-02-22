@@ -21,3 +21,10 @@
 	</div>
 </form>
 
+{{tasks1 | json}}
+<!--<div *ngFor="#t of tasks">
+    {{t}}
+</div>-->
+<table *ngIf="taskz">
+    <tr class="yahoo" *ngFor="#t of taskz" [task]="t"></tr>
+</table>
