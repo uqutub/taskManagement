@@ -1,0 +1,29 @@
+<td>    
+    <!--{{team |json}}-->
+    <label>{{team.name}}</label>
+    <label>{{team.description}}</label>
+    
+    <div>
+        <h5>Assigned Tasks</h5>
+        <ul>
+            <li *ngFor="#asignedTask of team.tasks">{{asignedTask.name}} - {{asignedTask._id}}</li>
+        </ul>
+        
+        <h5>Assigned to Members</h5>
+        <label for="Addmember">Add Member</label>
+        <input type="email" value="" placeholder="member email id" #email>
+        <input type="button" name="member" value="Add Member" (click)="addMember(email.value);">
+        <ul>
+            <li *ngFor="#asignedMember of team.members">{{asignedMember.name}} - {{asignedMember.email}}</li>
+        </ul>
+    </div>
+    
+    <div class="taskSelector" [task]="team.tasks[0]">
+        
+    </div>
+    
+    <button type="button">Edit</button> 
+    <strong>|</strong> 
+    <button type="button">Delete</button>
+    
+</td> 

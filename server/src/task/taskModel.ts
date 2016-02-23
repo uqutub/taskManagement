@@ -71,7 +71,7 @@ export class Task implements ITask {
     }
     
     getTasks(userid: string, cb: _helper.CallBackFunction){
-         taskCollection.find({'owner._id': userid}, function(err, tasks) { 
+         taskCollection.find({'owner._id': userid}, function(err, tasks: ITask[]) { 
             if (err) {
                 cb(err, null);
             } else { 
@@ -79,6 +79,16 @@ export class Task implements ITask {
             }
         })
     }
+    
+    getSingleTask(taskid: string, cb: _helper.CallBackFunction){
+         taskCollection.findById(taskid, function(err, task: ITask) { 
+            if (err) {
+                cb(err, null);
+            } else { 
+                cb(null, task);
+            }
+        })
+    };
     
     create(task: ITask, cb: _helper.CallBackFunction) {
         let taskObj = new taskCollection(task);

@@ -31,7 +31,6 @@ System.register(['angular2/core', 'angular2/http'], function(exports_1) {
                     }); //http.request - for get
                 }; //getJSON
                 HttpService.prototype.addJSON = function (url, obj, cb) {
-                    console.log('addJSON obj', obj);
                     var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
                     var options = new http_1.RequestOptions();

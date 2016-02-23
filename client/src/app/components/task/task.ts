@@ -3,7 +3,7 @@ import {TaskService} from './taskService';
 import {TaskModel} from './taskModel';
 import {IMember, MemberService} from './../member/memberService';
 import config from "./../../config";
-import {TaskList} from './list/taskList';
+import {TaskRender} from './taskRender/taskRender';
 import {ITask} from './taskModel';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 
@@ -12,7 +12,7 @@ import {customServerResponseObject as serverResponseObject} from './../helpers/h
     selector: 'task-component',
     templateUrl: config.componentPath + 'task/task.html',
     providers: [TaskService],
-    directives: [TaskList] 
+    directives: [TaskRender] 
 })
 export class Task {
     taskz: any[];

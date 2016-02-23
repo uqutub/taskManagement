@@ -39,5 +39,16 @@ var Controller = {
             }
         });
     },
+    getSingleTask_get: function (req, res) {
+        var taskid = req.params.taskid;
+        taskObject.getSingleTask(taskid, function (err, data) {
+            if (err) {
+                res.json({ 'success': false, 'data': null, 'error': err });
+            }
+            else {
+                res.json({ 'success': true, 'data': data, 'error': null });
+            }
+        });
+    },
 };
 module.exports = Controller;

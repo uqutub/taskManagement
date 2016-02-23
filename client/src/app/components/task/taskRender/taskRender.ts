@@ -4,16 +4,16 @@ import {Task} from './../task';        //importing directive
 import {ITask, IComment} from './../taskModel';
 import {TaskService} from './../taskService';
 import {MemberService} from './../../member/memberService';
-import{TaskComment} from './../comment/taskComment';
+import{TaskComment} from './../taskComment/taskComment';
 import {customServerResponseObject as serverResponseObject} from './../../helpers/helpers';
 
 @Component({
-    selector: '.yahoo',
-    templateUrl: config.componentPath + 'task/list/taskList.html',
+    selector: '.taskSelector',
+    templateUrl: config.componentPath + 'task/taskRender/taskRender.html',
     inputs: ['task'],
     directives: [TaskComment] 
 })
-export class TaskList {
+export class TaskRender {
     task: ITask;
     
     //constructor
@@ -34,5 +34,5 @@ export class TaskList {
                 
             }
         });
-    }
+    }; //addComment
 }

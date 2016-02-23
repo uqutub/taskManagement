@@ -4,7 +4,7 @@ import {TeamService} from './teamService';
 import { ITeam, TeamTaskObject, TeamModel } from './teamModel';
 import { IMember, MemberService, LoggedInMember } from './../member/memberService';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
-import {TeamRender} from './teamRender';
+import {TeamRender} from './teamRender/teamRender';
 
 
 @Component({
@@ -31,7 +31,6 @@ export class Team {
     getTeams(){
         this.teamService.getTeams(this.memberService._id, (d: serverResponseObject)=>{
             if(d.success){
-                console.log('teams array', d.data);
                this.teams = d.data; 
             } else {
                 

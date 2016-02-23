@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../../config", './../taskService', './../../member/memberService', './../comment/taskComment'], function(exports_1) {
+System.register(["angular2/core", "./../../../config", './../../task/taskService', './../../task/taskComment/taskComment', './../../member/memberService', './../teamService'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,8 +8,8 @@ System.register(["angular2/core", "./../../../config", './../taskService', './..
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, config_1, taskService_1, memberService_1, taskComment_1;
-    var TaskList;
+    var core_1, config_1, taskService_1, taskComment_1, memberService_1, teamService_1;
+    var TaskRender;
     return {
         setters:[
             function (core_1_1) {
@@ -21,22 +21,38 @@ System.register(["angular2/core", "./../../../config", './../taskService', './..
             function (taskService_1_1) {
                 taskService_1 = taskService_1_1;
             },
+            function (taskComment_1_1) {
+                taskComment_1 = taskComment_1_1;
+            },
             function (memberService_1_1) {
                 memberService_1 = memberService_1_1;
             },
-            function (taskComment_1_1) {
-                taskComment_1 = taskComment_1_1;
+            function (teamService_1_1) {
+                teamService_1 = teamService_1_1;
             }],
         execute: function() {
-            TaskList = (function () {
+            TaskRender = (function () {
                 //constructor
-                function TaskList(taskService, memberService) {
+                function TaskRender(teamService, taskService, memberService) {
+                    this.teamService = teamService;
                     this.taskService = taskService;
                     this.memberService = memberService;
                 }
-                TaskList.prototype.addComment = function (txtComment) {
+                ;
+                //use for after getting task data
+                TaskRender.prototype.ngOnInit = function () {
                     var _this = this;
-                    console.log(txtComment.value);
+                    this.taskService.getSingleTask(this.task._id, function (d) {
+                        if (d.success) {
+                            _this.task = d.data;
+                        }
+                        else {
+                        }
+                    });
+                };
+                ;
+                TaskRender.prototype.addComment = function (txtComment) {
+                    var _this = this;
                     var _comment = {
                         dated: Date.now(),
                         comment: txtComment.value,
@@ -50,18 +66,20 @@ System.register(["angular2/core", "./../../../config", './../taskService', './..
                         }
                     });
                 };
-                TaskList = __decorate([
+                ;
+                TaskRender = __decorate([
                     core_1.Component({
-                        selector: '.yahoo',
-                        templateUrl: config_1.default.componentPath + 'task/list/taskList.html',
+                        selector: '.taskSelector',
+                        templateUrl: config_1.default.componentPath + 'task/taskRender/taskRender.html',
+                        directives: [taskComment_1.TaskComment],
+                        providers: [teamService_1.TeamService, taskService_1.TaskService],
                         inputs: ['task'],
-                        directives: [taskComment_1.TaskComment]
                     }), 
-                    __metadata('design:paramtypes', [taskService_1.TaskService, memberService_1.MemberService])
-                ], TaskList);
-                return TaskList;
+                    __metadata('design:paramtypes', [teamService_1.TeamService, taskService_1.TaskService, memberService_1.MemberService])
+                ], TaskRender);
+                return TaskRender;
             })();
-            exports_1("TaskList", TaskList);
+            exports_1("TaskRender", TaskRender);
         }
     }
 });

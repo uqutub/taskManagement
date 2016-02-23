@@ -21,7 +21,6 @@ export class HttpService {
 	} 	//getJSON
 
 	addJSON(url: string, obj: any, cb: ServerResponse): void {
-		 console.log('addJSON obj', obj)
 
 		let headers: Headers = new Headers();
 		headers.append('Content-Type', 'application/json');

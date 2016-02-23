@@ -11,7 +11,7 @@ export class TaskService {
     };
     
     getTasks(userid: string, cb?: (d) => void) {
-        this.httpService.getJSON('/api/task/'+userid, function(resdata: serverResponseObject) {
+        this.httpService.getJSON('/api/task/tasks/'+userid, function(resdata: serverResponseObject) {
             console.log('from taks server', resdata.data);
             if (resdata.success) {
                 //if member created scueessfully
@@ -22,8 +22,20 @@ export class TaskService {
             }
         });
     };
-
     
+    getSingleTask(taskid: string, cb?: (d) => void) {
+        this.httpService.getJSON('/api/task/task/'+taskid, function(resdata: serverResponseObject) {
+            console.log('from taks server', resdata.data);
+            if (resdata.success) {
+                //if member created scueessfully
+                cb({ success: true, error: false, data: resdata.data });
+            } else {
+                //if member not created scueessfully
+                cb({ success: false, error: true, data: null });
+            }
+        });
+    }; //getSingleTask
+
     //createTask
     createTask(_task: ITask, cb: serverResponseFunction) {
         this.httpService.addJSON('/api/task/create', _task, (resdata: serverResponseObject) => {
@@ -39,8 +51,6 @@ export class TaskService {
     
     addComment(taskid: string, comment: IComment, cb: serverResponseFunction){
         this.httpService.updateJSON('/api/task/comment/'+taskid, comment, (resdata: serverResponseObject) => {
-            console.log('from server..taskService', resdata);
-            
             if (resdata.success) {
                 //if member created scueessfully
                 cb({ success: true, error: false, data: resdata.data });

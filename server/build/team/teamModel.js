@@ -1,6 +1,7 @@
 /// <reference path="./../../typings/tsd.d.ts" />
 //import moongose
 var mongoose = require('mongoose'); //import mongoose
+var memberModel_1 = require("../member/memberModel"); //import Member Class
 //////////////////// Mongoose ////////////////////////
 //Creating Schema for User in MongoDB
 var teamSchema = new mongoose.Schema({
@@ -45,16 +46,32 @@ var Team = (function () {
             }
         });
     };
-    Team.prototype.addMember = function (_member, cb) {
-        teamCollection.findByIdAndUpdate(this._id, { $push: { members: _member } }, function (err, team) {
-            if (err) {
-                cb(err, null);
+    ;
+    Team.prototype.addMember = function (teamid, email, cb) {
+        //checking first is member exists or not
+        memberModel_1.Member.isMemberExists(email, function (error, member) {
+            if (error) {
+                cb(error, null);
             }
             else {
-                cb(null, team);
+                //if member exists then add in team .....
+                if (member) {
+                    teamCollection.findByIdAndUpdate(teamid, { $push: { members: member } }, function (err, team) {
+                        if (err) {
+                            cb(err, null);
+                        }
+                        else {
+                            cb(null, member);
+                        }
+                    }); //teamCollection.findByIdAndUpdate
+                }
+                else {
+                    cb('Member not Exists', null);
+                }
             }
-        });
+        }); //Member.isMemberExists
     };
+    ;
     Team.prototype.assignTask = function (_taskObj, cb) {
         teamCollection.findByIdAndUpdate(this._id, { $push: { tasks: _taskObj } }, function (err, team) {
             if (err) {

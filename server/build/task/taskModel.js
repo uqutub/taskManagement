@@ -44,6 +44,17 @@ var Task = (function () {
             }
         });
     };
+    Task.prototype.getSingleTask = function (taskid, cb) {
+        taskCollection.findById(taskid, function (err, task) {
+            if (err) {
+                cb(err, null);
+            }
+            else {
+                cb(null, task);
+            }
+        });
+    };
+    ;
     Task.prototype.create = function (task, cb) {
         var taskObj = new taskCollection(task);
         taskObj.save(function (err, data) {

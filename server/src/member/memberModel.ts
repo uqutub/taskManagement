@@ -34,15 +34,11 @@ export class Member implements IMember {
     
     //is member exists checking
     static isMemberExists(_email: string, cb: helper.CallBackFunction): void {
-        memberCollection.find({ email: _email }, function(err, member: IMember) {
+        memberCollection.findOne({ email: _email }, function(err, member: IMember) {
             if (err) {
                 cb(true, null)      // err true
-            }
-
-            if (member && member.email) {
-                cb(true, null)      //err true if user exists
             } else {
-                cb(false, null)     //err false if user not exixts
+                cb(null, member)      // err true
             }
         })
     } //isUserExists
@@ -58,18 +54,21 @@ export class Member implements IMember {
     } // static create 
 
     static create(member: IMember, cb: helper.CallBackFunction): void {
-        Member.isMemberExists(member.email, function(error, result) {
-            if (!error) { 
+        Member.isMemberExists(member.email, function(error, result: IMember) {
+            if (error) { 
+                cb(error, null);
+            } else {
                 //create Member
+                if(result && result.email){
+                    cb('Member Exists', null);
+                } else { }
                 var memberObj = new memberCollection(member);
                 memberObj.save(function(err, data: IMember) {
                     if (err) {
                         cb(err, null);
                     }
                     cb(null, data);
-                }); //memberObj.save
-            } else { 
-                cb('Member Already Exists', null);
+                }); //memberObj.save 
             }
         });
     } // static create 

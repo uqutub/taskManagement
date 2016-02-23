@@ -15,15 +15,12 @@ var Member = (function () {
     }
     //is member exists checking
     Member.isMemberExists = function (_email, cb) {
-        memberCollection.find({ email: _email }, function (err, member) {
+        memberCollection.findOne({ email: _email }, function (err, member) {
             if (err) {
                 cb(true, null); // err true
             }
-            if (member && member.email) {
-                cb(true, null); //err true if user exists
-            }
             else {
-                cb(false, null); //err false if user not exixts
+                cb(null, member); // err true
             }
         });
     }; //isUserExists
@@ -38,18 +35,22 @@ var Member = (function () {
     }; // static create 
     Member.create = function (member, cb) {
         Member.isMemberExists(member.email, function (error, result) {
-            if (!error) {
+            if (error) {
+                cb(error, null);
+            }
+            else {
                 //create Member
+                if (result && result.email) {
+                    cb('Member Exists', null);
+                }
+                else { }
                 var memberObj = new memberCollection(member);
                 memberObj.save(function (err, data) {
                     if (err) {
                         cb(err, null);
                     }
                     cb(null, data);
-                }); //memberObj.save
-            }
-            else {
-                cb('Member Already Exists', null);
+                }); //memberObj.save 
             }
         });
     }; // static create 

@@ -5,8 +5,8 @@ import {IComment} from './../taskModel';
 
 
 @Component({
-    selector: '.yahoo',
-    templateUrl: config.componentPath + 'task/comment/taskComment.html',
+    selector: '.commentSelector',
+    templateUrl: config.componentPath + 'task/taskComment/taskComment.html',
     inputs: ['comment'],
 })
 export class TaskComment {

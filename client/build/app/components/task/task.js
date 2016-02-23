@@ -1,4 +1,4 @@
-System.register(["angular2/core", './taskService', './taskModel', './../member/memberService', "./../../config", './list/taskList'], function(exports_1) {
+System.register(["angular2/core", './taskService', './taskModel', './../member/memberService', "./../../config", './taskRender/taskRender'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, taskService_1, taskModel_1, memberService_1, config_1, taskList_1;
+    var core_1, taskService_1, taskModel_1, memberService_1, config_1, taskRender_1;
     var Task;
     return {
         setters:[
@@ -27,8 +27,8 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
             function (config_1_1) {
                 config_1 = config_1_1;
             },
-            function (taskList_1_1) {
-                taskList_1 = taskList_1_1;
+            function (taskRender_1_1) {
+                taskRender_1 = taskRender_1_1;
             }],
         execute: function() {
             Task = (function () {
@@ -76,7 +76,7 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                         selector: 'task-component',
                         templateUrl: config_1.default.componentPath + 'task/task.html',
                         providers: [taskService_1.TaskService],
-                        directives: [taskList_1.TaskList]
+                        directives: [taskRender_1.TaskRender]
                     }), 
                     __metadata('design:paramtypes', [taskService_1.TaskService, memberService_1.MemberService])
                 ], Task);

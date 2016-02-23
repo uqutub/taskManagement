@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './teamRender'], function(exports_1) {
+System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './teamRender/teamRender'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -45,7 +45,6 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     var _this = this;
                     this.teamService.getTeams(this.memberService._id, function (d) {
                         if (d.success) {
-                            console.log('teams array', d.data);
                             _this.teams = d.data;
                         }
                         else {

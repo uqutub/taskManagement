@@ -26,7 +26,21 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 }
                 ;
                 TaskService.prototype.getTasks = function (userid, cb) {
-                    this.httpService.getJSON('/api/task/' + userid, function (resdata) {
+                    this.httpService.getJSON('/api/task/tasks/' + userid, function (resdata) {
+                        console.log('from taks server', resdata.data);
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
+                ;
+                TaskService.prototype.getSingleTask = function (taskid, cb) {
+                    this.httpService.getJSON('/api/task/task/' + taskid, function (resdata) {
                         console.log('from taks server', resdata.data);
                         if (resdata.success) {
                             //if member created scueessfully
@@ -55,7 +69,6 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 ;
                 TaskService.prototype.addComment = function (taskid, comment, cb) {
                     this.httpService.updateJSON('/api/task/comment/' + taskid, comment, function (resdata) {
-                        console.log('from server..taskService', resdata);
                         if (resdata.success) {
                             //if member created scueessfully
                             cb({ success: true, error: false, data: resdata.data });

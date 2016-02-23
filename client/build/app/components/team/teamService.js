@@ -51,13 +51,27 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                         }
                     });
                 };
+                ;
+                TeamService.prototype.addMember = function (teamid, email, cb) {
+                    this.httpService.updateJSON('/api/team/addMember/' + teamid, { 'email': email }, function (resdata) {
+                        if (resdata.success) {
+                            //if member created scueessfully
+                            cb({ success: true, error: false, data: resdata.data });
+                        }
+                        else {
+                            //if member not created scueessfully
+                            cb({ success: false, error: true, data: null });
+                        }
+                    });
+                };
+                ;
                 TeamService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [httpService_1.HttpService])
                 ], TeamService);
                 return TeamService;
             })();
-            exports_1("TeamService", TeamService);
+            exports_1("TeamService", TeamService); //TeamService
         }
     }
 });

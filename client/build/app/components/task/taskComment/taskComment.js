@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config"], function(exports_1) {
+System.register(["angular2/core", "./../../../config"], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -9,7 +9,7 @@ System.register(["angular2/core", "./../../config"], function(exports_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1, config_1;
-    var TeamRender;
+    var TaskComment;
     return {
         setters:[
             function (core_1_1) {
@@ -19,21 +19,21 @@ System.register(["angular2/core", "./../../config"], function(exports_1) {
                 config_1 = config_1_1;
             }],
         execute: function() {
-            TeamRender = (function () {
+            TaskComment = (function () {
                 //constructor
-                function TeamRender() {
+                function TaskComment() {
                 }
-                TeamRender = __decorate([
+                TaskComment = __decorate([
                     core_1.Component({
-                        selector: '.yahoo',
-                        templateUrl: config_1.default.componentPath + 'team/teamRender.html',
-                        inputs: ['team']
+                        selector: '.commentSelector',
+                        templateUrl: config_1.default.componentPath + 'task/taskComment/taskComment.html',
+                        inputs: ['comment'],
                     }), 
                     __metadata('design:paramtypes', [])
-                ], TeamRender);
-                return TeamRender;
+                ], TaskComment);
+                return TaskComment;
             })();
-            exports_1("TeamRender", TeamRender);
+            exports_1("TaskComment", TaskComment);
         }
     }
 });

@@ -40,6 +40,17 @@ let Controller = {
             }
         });
     }, //TaskComment_put
+    
+    getSingleTask_get: (req: express.Request, res: express.Response) => {
+        let taskid = req.params.taskid;
+        taskObject.getSingleTask(taskid, function(err, data: ITask){
+             if (err) {
+				res.json({ 'success': false, 'data': null, 'error': err });
+			} else {
+				res.json({ 'success': true, 'data': data, 'error': null });
+			}
+        });
+    }, //getSingleTask_get
 };
 
 //export controller object

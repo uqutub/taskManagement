@@ -1,4 +1,4 @@
-var teamModel_1 = require("./teamModel"); //import Member Class
+var teamModel_1 = require("./teamModel");
 var teamObject = new teamModel_1.Team();
 //Object
 var Controller = {
@@ -26,9 +26,20 @@ var Controller = {
             }
         });
     },
-    AddMember_post: function (req, res) {
-        //console.log(req.body);
-        res.json({ 'success': true, 'data': null });
+    AddMember_put: function (req, res) {
+        console.log('team add member post', req.body);
+        var teamid = req.params.teamid;
+        var email = req.body.email;
+        //var teamObject = new Team();          //initialized/create team Obj
+        teamObject.addMember(teamid, email, function (err, member) {
+            console.log('sending object to client: ', member);
+            if (err) {
+                res.json({ 'success': false, 'data': null, 'error': err });
+            }
+            else {
+                res.json({ 'success': true, 'data': member, 'error': null });
+            }
+        });
     },
 };
 module.exports = Controller;

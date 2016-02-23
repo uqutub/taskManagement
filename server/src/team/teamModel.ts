@@ -2,7 +2,7 @@
 
 //import moongose
 import * as mongoose from 'mongoose'; 	         //import mongoose
-import {IMember} from "../member/memberModel"     //import Member Class
+import {IMember, Member} from "../member/memberModel"     //import Member Class
 import * as _helper from "./../helpers/helper"     //import Member Class
 
 
@@ -76,17 +76,29 @@ export class Team implements ITeam{
                 cb(null, team);
             }
         })
-    }
+    }; //create
 	
-	addMember(_member: IMember, cb: _helper.CallBackFunction) {
-        teamCollection.findByIdAndUpdate(this._id, { $push: { members: _member } }, function(err, team: ITeam) {
-            if (err) {
-                cb(err, null);
-            } else { 
-                cb(null, team);
+    addMember(teamid: string, email: string, cb: _helper.CallBackFunction) {
+        //checking first is member exists or not
+        Member.isMemberExists(email, (error, member: IMember) => {
+            if (error) {
+                cb(error, null);
+            } else {
+                //if member exists then add in team .....
+                if(member) {
+                    teamCollection.findByIdAndUpdate(teamid, { $push: { members: member } }, function(err, team: ITeam) {
+                        if (err) {
+                            cb(err, null);
+                        } else {
+                            cb(null, member);
+                        }
+                    }); //teamCollection.findByIdAndUpdate
+                } else {
+                    cb('Member not Exists', null);
+                }
             }
-        });
-    }
+        }); //Member.isMemberExists
+    }; //addMember
     
     assignTask(_taskObj: TeamTaskObject, cb: _helper.CallBackFunction) { 
         teamCollection.findByIdAndUpdate(this._id, { $push: { tasks: _taskObj } }, function(err, team: ITeam) {
@@ -97,7 +109,7 @@ export class Team implements ITeam{
             }
         });
     }
-
+    
 	static saveToDB(team){
 		
 	}

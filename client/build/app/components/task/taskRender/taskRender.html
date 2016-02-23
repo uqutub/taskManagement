@@ -1,9 +1,9 @@
 <td>   
-    {{task | json}} 
+    <!--{{task | json}} -->
     <label>{{task.name}}</label>
     <label>{{task.description}}</label>
     <ul>
-        <li class="yahoo" *ngFor="#c of task.comments" [comment]="c">  
+        <li class="commentSelector" *ngFor="#c of task.comments" [comment]="c">  
         </li>
     </ul>
     <div>

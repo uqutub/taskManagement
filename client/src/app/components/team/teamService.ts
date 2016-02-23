@@ -26,7 +26,7 @@ export class TeamService {
                 cb({ success: false, error: true, data: null });
             }
         });
-    };
+    }; //getTeams
 
     createTeam(team: ITeam, cb: serverResponseFunction) {
         this.httpService.addJSON('/api/team/create', team, (resdata: serverResponseObject) => {
@@ -38,9 +38,21 @@ export class TeamService {
                 cb({ success: false, error: true, data: null });
             }
         });
-    }
+    }; //createTeam
+    
+    addMember(teamid: string, email: string, cb: serverResponseFunction) {
+        this.httpService.updateJSON('/api/team/addMember/'+teamid, {'email': email}, (resdata: serverResponseObject) => {
+            if (resdata.success) {
+                //if member created scueessfully
+                cb({ success: true, error: false, data: resdata.data });
+            } else {
+                //if member not created scueessfully
+                cb({ success: false, error: true, data: null });
+            }
+        });
+    }; //addMember
 
-}
+} //TeamService
 
 
 //var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 };
