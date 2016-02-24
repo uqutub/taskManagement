@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", './signupService', 'angular2/router'], function(exports_1) {
+System.register(["angular2/core", "./../../config", './signupService', 'angular2/common', './../helpers/ControlMessages', './../helpers/ValidationService', 'angular2/router'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", "./../../config", './signupService', 'angular2
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, config_1, signupService_1, router_1;
+    var core_1, config_1, signupService_1, common_1, ControlMessages_1, ValidationService_1, router_1;
     var Signup;
     return {
         setters:[
@@ -21,36 +21,55 @@ System.register(["angular2/core", "./../../config", './signupService', 'angular2
             function (signupService_1_1) {
                 signupService_1 = signupService_1_1;
             },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (ControlMessages_1_1) {
+                ControlMessages_1 = ControlMessages_1_1;
+            },
+            function (ValidationService_1_1) {
+                ValidationService_1 = ValidationService_1_1;
+            },
             function (router_1_1) {
                 router_1 = router_1_1;
             }],
         execute: function() {
             Signup = (function () {
-                //router: Router
-                function Signup(signupService, router) {
+                function Signup(signupService, router, formBuilder) {
                     this.signupService = signupService;
                     this.router = router;
+                    this.formBuilder = formBuilder;
                     //ctor
+                    this.signupForm = this.formBuilder.group({
+                        'name': ['', common_1.Validators.required],
+                        'email': ['', common_1.Validators.compose([common_1.Validators.required, ValidationService_1.ValidationService.emailValidator])],
+                        'password': ['', common_1.Validators.compose([common_1.Validators.required, ValidationService_1.ValidationService.passwordValidator])]
+                    });
                 }
                 Signup.prototype.signup = function () {
-                    var _this = this;
-                    var signupObj = { _id: '', email: this.email, password: this.password, name: this.name };
-                    this.signupService.signup(signupObj, function (d) {
-                        if (d.success) {
-                            _this.router.parent.navigate(['/Home']);
-                        }
-                        else {
-                        }
-                    });
+                    if (this.signupForm.dirty && this.signupForm.valid) {
+                        alert("Name: " + this.signupForm.value.name + " Email: " + this.signupForm.value.email);
+                    }
+                    return false;
+                    // var signupObj: IUser = { _id: '', email: this.email, password: this.password, name: this.name };
+                    // this.signupService.signup(signupObj, (d: serverResponseObject) => {
+                    //     if (d.success) {
+                    //         this.router.parent.navigate(['/Home']);
+                    //     } else { 
+                    //         //if not scueessfully singup then do what ever to do, even do double, but don't trouble your mother....
+                    //     }
+                    // });
                 };
+                ;
                 Signup = __decorate([
                     //for navigation
                     core_1.Component({
                         selector: 'signup',
                         templateUrl: config_1.default.componentPath + 'signup/signup.html',
                         providers: [signupService_1.SignupService],
+                        directives: [ControlMessages_1.ControlMessages]
                     }), 
-                    __metadata('design:paramtypes', [signupService_1.SignupService, router_1.Router])
+                    __metadata('design:paramtypes', [signupService_1.SignupService, router_1.Router, common_1.FormBuilder])
                 ], Signup);
                 return Signup;
             })();

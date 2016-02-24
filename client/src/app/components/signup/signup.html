@@ -1,4 +1,4 @@
-<form action="">
+<!--<form action="">
 	<div>
 		<label for="name">Name</label>
 		<input type="text" name="name" [(ngModel)]="name" ng placeholder="name" />
@@ -15,4 +15,28 @@
 		<input type="submit" value="Signup"  (click)="signup()" />
 		<input type="submit" value="Forgot Password" />
 	</div>
+</form>-->
+
+<form [ngFormModel]="signupForm" (submit)="signup()">
+    <div>
+        <label for="name">Name</label>
+        <input ngControl="name" id="name" />
+        <control-messages control="name"></control-messages>
+    </div>
+    
+    <div>
+        <label for="email">Email</label>
+        <input ngControl="email" id="email" />
+        <control-messages control="email"></control-messages>
+    </div>
+    
+    <div>
+        <label for="password">Password</label>
+        <input ngControl="password" id="password" placeholder="password"/>
+        <control-messages control="password"></control-messages>
+    </div>
+    
+    <button type="submit" [disabled]="!signupForm.valid">Submit</button>
 </form>
+
+<!--type="password" name="password" [(ngModel)]="password"-->
