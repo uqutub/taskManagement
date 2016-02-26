@@ -23,9 +23,16 @@ export class SignupService {
 			if (resdata.success){
 				//if successfully signup, now creating a member
 				var memberObj: IMember = resdata.data;	
-				this.memberService.memberOnSignup(memberObj, (d) => {
+				this.memberService.memberOnSignup(memberObj, (d: serverResponseObject) => {
 					if (d.success) {
 						//if member created scueessfully
+                        
+                        //assiging member propperty on signup successfull for use as a current user/member...
+                        this.memberService._id = d.data._id;       //assign current user id
+                        this.memberService.name = d.data.name;       //assign current user id
+                        this.memberService.email = d.data.email;       //assign current user id
+                        this.memberService.isLoggedin = true;         //status to loggedin true 
+                        
 						cb({ success: true, error: false, data: d.data });
 					} else {
 						//if member not created scueessfully

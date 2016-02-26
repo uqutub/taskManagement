@@ -12,7 +12,8 @@ System.register([], function(exports_1) {
                         'invalidCreditCard': 'Is invalid credit card number',
                         'invalidEmailAddress': 'Invalid email address',
                         'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-                        'invalidDecimalNumber': 'Invalid number should be number or decimal values'
+                        'invalidDecimalNumber': 'Invalid number should be number or decimal values',
+                        'invalidDropdown': 'Select any option'
                     };
                     return config[code];
                 };
@@ -44,13 +45,21 @@ System.register([], function(exports_1) {
                         return { 'invalidPassword': true };
                     }
                 };
+                ValidationService.dropdownValidator = function (control) {
+                    //default value of dorpdown will be -1,         
+                    if (control.value != '-1') {
+                        return null;
+                    }
+                    else {
+                        return { 'invalidDropdown': true };
+                    }
+                };
                 ValidationService.decimalNumberValidator = function (control) {
                     // ^[0-9]+(\.[0-9]{1,2})?$           # only number or decimal upto 2 digits are allowed
                     //  ^                   # Start of string.
                     //  [0-9]+              # Must have one or more numbers.
                     //  (                   # Begin optional group.
-                    //  \.                  # The decimal point, . must be escaped, 
-                    //                      # or it is treated as "any character".
+                    //  \.                  # The decimal point, . must be escaped,  or it is treated as "any character". 
                     //  [0-9]{1,2}          # One or two numbers.
                     //  )?                  # End group, signify it's optional with ?
                     //  $                   # End of string.
@@ -68,7 +77,8 @@ System.register([], function(exports_1) {
     }
 });
 // ^((\+|\-)?)\d+(\.\d{1,2})?$         #start if any + or - numbders
-// ^[a-z]+([a-z0-9]+)?                  #should be start with alphabets (small) and then alphanumaric... else nuthing will be allowed
+// ^[a-z]+([a-z0-9]+)?                  # should be start with alphabets (small) and then alphanumaric... else nuthing will be allowed
+// ^([a-z]{1}[a-z0-9]{2,4})           # should be start with alphabets (small) and then alphanumaric with min 3 and max 5... else nuthing will be allowed
 // ^([0-9]{1,7})?                       #should be only numbers, and range min 1 and max 7
 // Name:
 // Alphabets, numbers and space(' ') no special characters min 3 and max 20 characters. 

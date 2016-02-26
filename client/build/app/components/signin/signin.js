@@ -37,11 +37,8 @@ System.register(["angular2/core", "./../../config", './signinService', "angular2
                     this.signinService.signin(signinObj, function (d) {
                         if (d.success) {
                             _this.router.parent.navigate(['/Home']);
-                            return false;
                         }
                         else {
-                            //if not scueessfully singin then do what ever to do, even do double, but don't trouble your mother....
-                            return false;
                         }
                     });
                 }; //signin

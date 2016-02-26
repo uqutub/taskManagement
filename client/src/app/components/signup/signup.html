@@ -17,6 +17,28 @@
 	</div>
 </form>-->
 
+<form class="row" [ngFormModel]="signupForm" (submit)="signup()">
+    <div class="col-md-6">
+    <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Name" ngControl="name">
+            <control-messages control="name" class="text-danger"></control-messages>
+        </div>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" ngControl="email">
+            <control-messages control="email" class="text-danger"></control-messages>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"  ngControl="password">
+            <control-messages control="password" class="text-danger"></control-messages>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Signup</button>
+    </div>
+</form>
+
+<!--
 <form [ngFormModel]="signupForm" (submit)="signup()">
     <div>
         <label for="name">Name</label>
@@ -37,6 +59,6 @@
     </div>
     
     <button type="submit" [disabled]="!signupForm.valid">Submit</button>
-</form>
+</form>-->
 
 <!--type="password" name="password" [(ngModel)]="password"-->

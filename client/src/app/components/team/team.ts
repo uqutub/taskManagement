@@ -5,12 +5,15 @@ import { ITeam, TeamTaskObject, TeamModel } from './teamModel';
 import { IMember, MemberService, LoggedInMember } from './../member/memberService';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 import {TeamRender} from './teamRender/teamRender';
+import {FormBuilder, Validators} from 'angular2/common';
+import {ValidationService} from './../helpers/ValidationService';
+import {ControlMessages} from './../helpers/ControlMessages';
 
 
 @Component({
     selector: 'team',
     templateUrl: config.componentPath + 'team/team.html',
-    directives: [TeamRender],
+    directives: [TeamRender, ControlMessages],
     //template: `	<h1>Teams Page</h1>`,
     //providers:  [TeamService, MemberService],
     //providers: [provide(TeamService, {useClass: TeamService}), provide(MemberService, {useClass: MemberService})]
@@ -18,11 +21,22 @@ import {TeamRender} from './teamRender/teamRender';
 export class Team {
     
     teams: ITeam[];
+    teamForm: any;
+    memberForm: any;
     
     //constructor
-    constructor(private teamService: TeamService, private memberService: MemberService) {
+    constructor(private teamService: TeamService, private memberService: MemberService, private formBuilder: FormBuilder) {
         //getting current loggedin user/member
-        let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email};
+        let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
+        
+        this.teamForm = this.formBuilder.group({
+            'name': ['', Validators.required],
+            'task': ['-1', Validators.compose([Validators.required, ValidationService.dropdownValidator])]
+        });
+        
+        this.memberForm = this.formBuilder.group({
+            'member': ['', ValidationService.emailValidator],
+        });
         
         //get teams...
         this.getTeams();

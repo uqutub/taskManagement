@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './teamRender/teamRender'], function(exports_1) {
+System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './teamRender/teamRender', 'angular2/common', './../helpers/ValidationService', './../helpers/ControlMessages'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,7 +8,7 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, config_1, teamService_1, teamModel_1, memberService_1, teamRender_1;
+    var core_1, config_1, teamService_1, teamModel_1, memberService_1, teamRender_1, common_1, ValidationService_1, ControlMessages_1;
     var Team;
     return {
         setters:[
@@ -29,15 +29,32 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
             },
             function (teamRender_1_1) {
                 teamRender_1 = teamRender_1_1;
+            },
+            function (common_1_1) {
+                common_1 = common_1_1;
+            },
+            function (ValidationService_1_1) {
+                ValidationService_1 = ValidationService_1_1;
+            },
+            function (ControlMessages_1_1) {
+                ControlMessages_1 = ControlMessages_1_1;
             }],
         execute: function() {
             Team = (function () {
                 //constructor
-                function Team(teamService, memberService) {
+                function Team(teamService, memberService, formBuilder) {
                     this.teamService = teamService;
                     this.memberService = memberService;
+                    this.formBuilder = formBuilder;
                     //getting current loggedin user/member
                     var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
+                    this.teamForm = this.formBuilder.group({
+                        'name': ['', common_1.Validators.required],
+                        'task': ['-1', common_1.Validators.compose([common_1.Validators.required, ValidationService_1.ValidationService.dropdownValidator])]
+                    });
+                    this.memberForm = this.formBuilder.group({
+                        'member': ['', ValidationService_1.ValidationService.emailValidator],
+                    });
                     //get teams...
                     this.getTeams();
                 }
@@ -84,9 +101,9 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     core_1.Component({
                         selector: 'team',
                         templateUrl: config_1.default.componentPath + 'team/team.html',
-                        directives: [teamRender_1.TeamRender],
+                        directives: [teamRender_1.TeamRender, ControlMessages_1.ControlMessages],
                     }), 
-                    __metadata('design:paramtypes', [teamService_1.TeamService, memberService_1.MemberService])
+                    __metadata('design:paramtypes', [teamService_1.TeamService, memberService_1.MemberService, common_1.FormBuilder])
                 ], Team);
                 return Team;
             })();

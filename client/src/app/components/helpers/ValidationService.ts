@@ -1,12 +1,13 @@
 export class ValidationService {
-     
+
     static getValidatorErrorMessage(code: string) {
         let config = {
             'required': 'Required',
             'invalidCreditCard': 'Is invalid credit card number',
             'invalidEmailAddress': 'Invalid email address',
             'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-            'invalidDecimalNumber': 'Invalid number should be number or decimal values'
+            'invalidDecimalNumber': 'Invalid number should be number or decimal values',
+            'invalidDropdown': 'Select any option'
         };
         return config[code];
     }
@@ -19,7 +20,7 @@ export class ValidationService {
             return { 'invalidCreditCard': true };
         }
     }
-     
+
     static emailValidator(control) {
         // RFC 2822 compliant regex
         if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
@@ -28,7 +29,7 @@ export class ValidationService {
             return { 'invalidEmailAddress': true };
         }
     }
-     
+
     static passwordValidator(control) {
         // {6,100}           - Assert password is between 6 and 100 characters
         // (?=.*[0-9])       - Assert a string has at least one number
@@ -39,17 +40,24 @@ export class ValidationService {
         }
     }
     
+    static dropdownValidator(control) {
+        //default value of dorpdown will be -1,         
+        if (control.value != '-1') {
+            return null;
+        } else {
+            return { 'invalidDropdown': true };
+        }
+    }
+
     static decimalNumberValidator(control) {
         // ^[0-9]+(\.[0-9]{1,2})?$           # only number or decimal upto 2 digits are allowed
         //  ^                   # Start of string.
         //  [0-9]+              # Must have one or more numbers.
         //  (                   # Begin optional group.
-        //  \.                  # The decimal point, . must be escaped, 
-        //                      # or it is treated as "any character".
+        //  \.                  # The decimal point, . must be escaped,  or it is treated as "any character". 
         //  [0-9]{1,2}          # One or two numbers.
         //  )?                  # End group, signify it's optional with ?
         //  $                   # End of string.
-
         if (control.value.match(/^\d+(\.\d{1,2})?$/)) {
             return null;
         } else {
@@ -61,7 +69,8 @@ export class ValidationService {
 
 
 // ^((\+|\-)?)\d+(\.\d{1,2})?$         #start if any + or - numbders
-// ^[a-z]+([a-z0-9]+)?                  #should be start with alphabets (small) and then alphanumaric... else nuthing will be allowed
+// ^[a-z]+([a-z0-9]+)?                  # should be start with alphabets (small) and then alphanumaric... else nuthing will be allowed
+// ^([a-z]{1}[a-z0-9]{2,4})           # should be start with alphabets (small) and then alphanumaric with min 3 and max 5... else nuthing will be allowed
 // ^([0-9]{1,7})?                       #should be only numbers, and range min 1 and max 7
 
 // Name:

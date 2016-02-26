@@ -1,14 +1,14 @@
-<form action="">
-	<div>
-		<label for="email">Email</label>
-		<input type="email" name="email" #email placeholder="email" />
-	</div>
-	<div>
-		<label for="password">Password</label>
-		<input type="password" name="password" #password placeholder="password"/>
-	</div>
-	<div>
-		<input type="submit" value="Login" (click)="signin(email, password);"/>
-		<input type="submit" value="Sign-up" />
-	</div>
+<form class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" #email>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"  #password>
+        </div>
+        <button type="submit" class="btn btn-success" (click)="signin(email, password);">Login</button>
+        <button type="submit" class="btn btn-info">Signup</button>
+    </div>
 </form>

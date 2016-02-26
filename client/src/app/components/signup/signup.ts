@@ -32,19 +32,16 @@ export class Signup implements IUser {
     
     signup() {
         if (this.signupForm.dirty && this.signupForm.valid) {
-            alert(`Name: ${this.signupForm.value.name} Email: ${this.signupForm.value.email}`);
-        }
-        
-        return false;
-		
-        // var signupObj: IUser = { _id: '', email: this.email, password: this.password, name: this.name };
-		// this.signupService.signup(signupObj, (d: serverResponseObject) => {
-        //     if (d.success) {
-        //         this.router.parent.navigate(['/Home']);
-        //     } else { 
-        //         //if not scueessfully singup then do what ever to do, even do double, but don't trouble your mother....
-        //     }
-		// });
+            //if form is valid and dirty            //alert(`Name: ${this.signupForm.value.name} Email: ${this.signupForm.value.email}`);
+            var signupObj: IUser = { _id: '', email: this.email, password: this.password, name: this.name };
+            this.signupService.signup(signupObj, (d: serverResponseObject) => {
+                if (d.success) {
+                    this.router.parent.navigate(['/Home']);
+                } else { 
+                    //if not scueessfully singup then do what ever to do, even do double, but don't trouble your mother....
+                }
+            });
+        } //if form dirty and valid
     }; //signup()
 }
 

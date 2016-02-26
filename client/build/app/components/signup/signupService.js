@@ -37,6 +37,11 @@ System.register(['angular2/core', './../services/httpService', './../member/memb
                             _this.memberService.memberOnSignup(memberObj, function (d) {
                                 if (d.success) {
                                     //if member created scueessfully
+                                    //assiging member propperty on signup successfull for use as a current user/member...
+                                    _this.memberService._id = d.data._id; //assign current user id
+                                    _this.memberService.name = d.data.name; //assign current user id
+                                    _this.memberService.email = d.data.email; //assign current user id
+                                    _this.memberService.isLoggedin = true; //status to loggedin true 
                                     cb({ success: true, error: false, data: d.data });
                                 }
                                 else {
