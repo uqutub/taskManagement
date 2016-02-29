@@ -50,7 +50,11 @@ System.register(["angular2/core", "./../../config", './signupService', 'angular2
                     var _this = this;
                     if (this.signupForm.dirty && this.signupForm.valid) {
                         //if form is valid and dirty            //alert(`Name: ${this.signupForm.value.name} Email: ${this.signupForm.value.email}`);
-                        var signupObj = { _id: '', email: this.email, password: this.password, name: this.name };
+                        var signupObj = {
+                            _id: '', email: this.signupForm.value.email,
+                            password: this.signupForm.value.password,
+                            name: this.signupForm.value.name
+                        };
                         this.signupService.signup(signupObj, function (d) {
                             if (d.success) {
                                 _this.router.parent.navigate(['/Home']);

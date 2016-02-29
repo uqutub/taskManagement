@@ -37,17 +37,22 @@ System.register(['angular2/core', './../services/httpService', './../member/memb
                     this.httpService.addJSON('/api/user/signin', signinObj, function (d) {
                         if (d.success) {
                             //if member created scueessfully
-                            //assiging member propperty on sigin for use as a current user/member...
-                            _this.memberService._id = d.data._id; //assign current user id
-                            _this.memberService.name = d.data.name; //assign current user id
-                            _this.memberService.email = d.data.email; //assign current user id
-                            _this.memberService.isLoggedin = true; //status to loggedin true 
-                            console.log('this.memberservice ', _this.memberService._id, _this.memberService.name);
-                            //also assigning sigin object not neccesary
-                            _this._id = d.data._id; //assign current user id
-                            _this.name = d.data.name; //assign current user id
-                            _this.email = d.data.email; //assign current user id
-                            _this.isLoggedin = true; //status to loggedin true
+                            var _signedinMember = {
+                                _id: d.data._id,
+                                name: d.data.name,
+                                email: d.data.email
+                            };
+                            _this.memberService.onSingin(_signedinMember);
+                            // //assiging member propperty on sigin for use as a current user/member...
+                            // this.memberService._id = d.data._id;       //assign current user id
+                            // this.memberService.name = d.data.name;       //assign current user id
+                            // this.memberService.email = d.data.email;       //assign current user id
+                            // this.memberService.isLoggedin = true;         //status to loggedin true
+                            // //also assigning sigin object not neccesary
+                            // this._id = d.data._id;       //assign current user id
+                            // this.name = d.data.name;       //assign current user id
+                            // this.email = d.data.email;       //assign current user id
+                            // this.isLoggedin = true;         //status to loggedin true
                             cb({ success: true, error: false, data: d.data });
                         }
                         else {

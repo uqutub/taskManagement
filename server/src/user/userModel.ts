@@ -87,7 +87,7 @@ export class User implements IUser {
                 cb(error, null);
             } else { 
                 //if no error found
-                if (_user.password && _user.password === singinObj.password) {
+                if (_user && _user.password && _user.password === singinObj.password) {
                     //checking if object is not empty and password matched
                     cb(null, _user);
                 } else { 

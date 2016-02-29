@@ -1,6 +1,47 @@
 <h1>Task Page</h1>
 
-<form action="">
+<div class="row">
+    <div class="col-md-6" *ngIf="taskz && taskz.length > 0">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr class="taskSelector" *ngFor="#t of taskz" [task]="t"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form class="row" [ngFormModel]="taskForm" (submit)="creatTask()">
+            <div class="col-md-6">
+            <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name" ngControl="name">
+                    <control-messages control="name" class="text-danger"></control-messages>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" id="description" placeholder="Description" ngControl="description">
+                    <!--<control-messages control="description" class="text-danger"></control-messages>-->
+                </div>
+                <div class="form-group">
+                    <label for="team">Team</label>
+                    <select name="team" id="team" class="form-control" ngControl="team">
+                        <option value="-1">-- Select Team --</option>
+                        <option value="1">Team 1</option>
+                        <option value="2">Team 2</option>
+                    </select>
+                    <!--<control-messages control="team" class="text-danger"></control-messages>-->
+                </div>
+                <button type="submit" class="btn btn-success" [disabled]="!taskForm.valid">Create Task</button>
+            </div>
+        </form>        
+    </div>
+</div>
+
+
+
+
+<!--<form action="">
 	<div>
 		<label for="name">Task Name</label>
 		<input type="text" name="name" #name ng placeholder="name" />
@@ -21,10 +62,7 @@
 	</div>
 </form>
 
-{{tasks1 | json}}
+{{tasks1 | json}}-->
 <!--<div *ngFor="#t of tasks">
     {{t}}
 </div>-->
-<table *ngIf="taskz">
-    <tr class="taskSelector" *ngFor="#t of taskz" [task]="t"></tr>
-</table>

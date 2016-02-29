@@ -77,12 +77,16 @@ gulp.task('copy:index', function () {
         .pipe(gulp.dest(path.build));
 });
 
-
-
 // copy Libs
 gulp.task('copy:libs', function () {
     return gulp.src(path.libs)
         .pipe(gulp.dest(path.buildlib));
+});
+
+// copying htmls
+gulp.task('copy:html', function () {
+    return gulp.src(path.html)
+        .pipe(gulp.dest(path.buildapp));
 });
 
 
@@ -169,9 +173,11 @@ gulp.task('watch', function(){
     //client ts watching
     gulp.watch(path.clientts, ['Clienttranspile']);
     //client html watching
-    gulp.watch(path.html, function(file){
-        gulp.src(file.path).pipe(gulp.dest(path.buildapp));
-    });
+    
+    gulp.watch(path.html, ['copy:html']);
+    // gulp.watch(path.html, function (file) {
+    //     gulp.src(file.path).pipe(gulp.dest(path.buildapp));
+    // });
     //client index.html watching
     gulp.watch(path.index, function(file){
         gulp.src(file.path).pipe(gulp.dest(path.build));

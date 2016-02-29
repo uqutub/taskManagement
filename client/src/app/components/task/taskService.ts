@@ -5,32 +5,34 @@ import {customServerResponseObject as serverResponseObject, customServerResponse
 
 @Injectable()
 export class TaskService {
+    userTasks: ITask[];         //for holding all task in current user tasks
     
     constructor(private httpService: HttpService) {
         // do something with `userService` here	
     };
     
     getTasks(userid: string, cb?: (d) => void) {
-        this.httpService.getJSON('/api/task/tasks/'+userid, function(resdata: serverResponseObject) {
-            console.log('from taks server', resdata.data);
+        this.httpService.getJSON('/api/task/tasks/'+userid, (resdata: serverResponseObject) => {
             if (resdata.success) {
-                //if member created scueessfully
-                cb({ success: true, error: false, data: resdata.data });
+                this.userTasks = resdata.data;          //current user task saved in taskService.userTasks
+                console.log('on signin memberservice (taskService)', this.userTasks)
+                //cb({ success: true, error: false, data: resdata.data });
             } else {
                 //if member not created scueessfully
-                cb({ success: false, error: true, data: null });
+                //cb({ success: false, error: true, data: null });
             }
         });
     };
     
+    getAllCurrentUserTasks() : ITask[] { 
+        return this.userTasks;
+    };
+    
     getSingleTask(taskid: string, cb?: (d) => void) {
         this.httpService.getJSON('/api/task/task/'+taskid, function(resdata: serverResponseObject) {
-            console.log('from taks server', resdata.data);
             if (resdata.success) {
-                //if member created scueessfully
                 cb({ success: true, error: false, data: resdata.data });
             } else {
-                //if member not created scueessfully
                 cb({ success: false, error: true, data: null });
             }
         });

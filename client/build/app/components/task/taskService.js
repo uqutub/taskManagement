@@ -26,28 +26,27 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 }
                 ;
                 TaskService.prototype.getTasks = function (userid, cb) {
+                    var _this = this;
                     this.httpService.getJSON('/api/task/tasks/' + userid, function (resdata) {
-                        console.log('from taks server', resdata.data);
                         if (resdata.success) {
-                            //if member created scueessfully
-                            cb({ success: true, error: false, data: resdata.data });
+                            _this.userTasks = resdata.data; //current user task saved in taskService.userTasks
+                            console.log('on signin memberservice (taskService)', _this.userTasks);
                         }
                         else {
-                            //if member not created scueessfully
-                            cb({ success: false, error: true, data: null });
                         }
                     });
                 };
                 ;
+                TaskService.prototype.getAllCurrentUserTasks = function () {
+                    return this.userTasks;
+                };
+                ;
                 TaskService.prototype.getSingleTask = function (taskid, cb) {
                     this.httpService.getJSON('/api/task/task/' + taskid, function (resdata) {
-                        console.log('from taks server', resdata.data);
                         if (resdata.success) {
-                            //if member created scueessfully
                             cb({ success: true, error: false, data: resdata.data });
                         }
                         else {
-                            //if member not created scueessfully
                             cb({ success: false, error: true, data: null });
                         }
                     });

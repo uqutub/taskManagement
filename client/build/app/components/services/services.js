@@ -1,5 +1,5 @@
-System.register(['angular2/core', './../signup/signupService', './../member/memberService', './../team/teamService', './httpService'], function(exports_1) {
-    var core_1, signupService_1, memberService_1, teamService_1, httpService_1;
+System.register(['angular2/core', './../signup/signupService', './../member/memberService', './../team/teamService', './../task/taskService', './httpService'], function(exports_1) {
+    var core_1, signupService_1, memberService_1, teamService_1, taskService_1, httpService_1;
     var SERVICE_PROVIDER, ServicesArray;
     return {
         setters:[
@@ -15,6 +15,9 @@ System.register(['angular2/core', './../signup/signupService', './../member/memb
             function (teamService_1_1) {
                 teamService_1 = teamService_1_1;
             },
+            function (taskService_1_1) {
+                taskService_1 = taskService_1_1;
+            },
             function (httpService_1_1) {
                 httpService_1 = httpService_1_1;
             }],
@@ -24,6 +27,7 @@ System.register(['angular2/core', './../signup/signupService', './../member/memb
                 core_1.provide(httpService_1.HttpService, { useClass: httpService_1.HttpService }),
                 core_1.provide(signupService_1.SignupService, { useClass: signupService_1.SignupService }),
                 core_1.provide(memberService_1.MemberService, { useClass: memberService_1.MemberService }),
+                core_1.provide(taskService_1.TaskService, { useClass: taskService_1.TaskService }),
             ]);
             exports_1("ServicesArray", ServicesArray = [signupService_1.SignupService, memberService_1.MemberService, teamService_1.TeamService, httpService_1.HttpService]);
         }
