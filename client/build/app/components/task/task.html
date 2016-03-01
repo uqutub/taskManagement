@@ -13,7 +13,7 @@
     <div class="col-md-6">
         <form class="row" [ngFormModel]="taskForm" (submit)="creatTask()">
             <div class="col-md-6">
-            <div class="form-group">
+                <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Name" ngControl="name">
                     <control-messages control="name" class="text-danger"></control-messages>
@@ -34,7 +34,7 @@
                 </div>
                 <button type="submit" class="btn btn-success" [disabled]="!taskForm.valid">Create Task</button>
             </div>
-        </form>        
+        </form>
     </div>
 </div>
 

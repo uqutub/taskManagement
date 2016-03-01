@@ -8,12 +8,12 @@ import {customServerResponseObject as serverResponseObject, customServerResponse
 
 @Injectable()
 export class TeamService {
-
     name: string = 'hello';
 
     //
     constructor(private httpService: HttpService) {
-        // do something with `TeamService` here	
+        // do something with `TeamService` here
+        
     }
 
     getTeams(userid: string, cb?: (d) => void) {

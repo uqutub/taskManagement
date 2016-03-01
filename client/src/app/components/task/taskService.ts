@@ -11,7 +11,7 @@ export class TaskService {
         // do something with `userService` here	
     };
     
-    getTasks(userid: string, cb?: (d) => void) {
+    getTasks(userid: string, cb?: (d) => void) {                //calling oSignin in memberService
         this.httpService.getJSON('/api/task/tasks/'+userid, (resdata: serverResponseObject) => {
             if (resdata.success) {
                 this.userTasks = resdata.data;          //current user task saved in taskService.userTasks

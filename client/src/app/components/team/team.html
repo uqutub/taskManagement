@@ -26,18 +26,19 @@
                 <label for="task">Task</label>
                 <select name="task" id="task" class="form-control" ngControl="task">
                     <option value="-1">-- Select Task --</option>
-                    <option value="1">task 1</option>
-                    <option value="2">task 2</option>
+                    <option [value]="task._id" *ngFor="#task of tasks">{{task.name}}</option>
                 </select>
                 <control-messages control="task" class="text-danger"></control-messages>
             </div>
-            <div class="form-group"  [ngFormModel]="memberForm" (submit)="addMember()">
-                <label for="member">Member</label>
-                <div class="form-inline">
-                    <input type="email" class="form-control" id="member" name="member" placeholder="Email" ngControl="member">
-                    <button type="button" class="btn btn-primary" [disabled]="!memberForm.valid">Add</button>
-                </div>
-                <control-messages control="member" class="text-danger"></control-messages>
+            <div class="form-group">
+                <form   [ngFormModel]="memberForm" (submit)="addMember()">
+                    <label for="member">Member</label>
+                    <div class="form-inline">
+                        <input type="email" class="form-control" id="member" name="member" placeholder="Email" ngControl="member">
+                        <button type="button" class="btn btn-primary" [disabled]="!memberForm.valid">Add</button>
+                    </div>
+                    <control-messages control="member" class="text-danger"></control-messages>
+                </form>
             </div>
             <button type="submit" class="btn btn-success" [disabled]="!teamForm.valid">Create Team</button>
         </div>

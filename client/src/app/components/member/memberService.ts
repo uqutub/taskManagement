@@ -37,7 +37,9 @@ export class MemberService implements IMember {
         
         //now getting current user tasks
         this.taskService.getTasks(this._id);        ///load all tasks of current users
+        
         //now getting current user teams
+        
         
     } //onSingin
     

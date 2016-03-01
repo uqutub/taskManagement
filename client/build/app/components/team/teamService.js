@@ -22,9 +22,9 @@ System.register(['angular2/core', './../services/httpService'], function(exports
             TeamService = (function () {
                 //
                 function TeamService(httpService) {
+                    // do something with `TeamService` here
                     this.httpService = httpService;
                     this.name = 'hello';
-                    // do something with `TeamService` here	
                 }
                 TeamService.prototype.getTeams = function (userid, cb) {
                     this.httpService.getJSON('/api/team/' + userid, function (resdata) {
