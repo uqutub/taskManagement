@@ -8,7 +8,7 @@ import {TaskService} from './../task/taskService';
 import {ITask} from './../task/taskModel';
 import {TeamRender} from './teamRender/teamRender';
 import {FormBuilder, Validators} from 'angular2/common';
-import {ValidationService} from './../helpers/ValidationService';
+import {ValidationService} from './../services/ValidationService';
 import {ControlMessages} from './../helpers/ControlMessages';
 
 

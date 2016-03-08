@@ -7,7 +7,7 @@ import {TaskRender} from './taskRender/taskRender';
 import {ITask} from './taskModel';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 import {FormBuilder, Validators} from 'angular2/common';
-import {ValidationService} from './../helpers/ValidationService';
+import {ValidationService} from './../services/ValidationService';
 import {ControlMessages} from './../helpers/ControlMessages';
 
 
@@ -23,7 +23,7 @@ export class Task {
     
     //constructor
     constructor(private taskService: TaskService, private memberService: MemberService, private formBuilder: FormBuilder) {
-
+        //for task form validation
         this.taskForm = this.formBuilder.group({
             'name': ['', Validators.required],
             'description': ['', Validators.nullValidator],
@@ -32,17 +32,11 @@ export class Task {
         
         //loading tasks
         this.getTasks();
+        
     }; //constructor
     
     getTasks() {
         this.taskz = this.taskService.getAllCurrentUserTasks();
-        console.log('on get (task.ts)', this.taskz)
-        // this.taskService.getTasks(this.memberService._id, (d: serverResponseObject) => {
-        //     if (d.success) {
-        //         this.taskz = d.data;
-        //     } else {
-        //     }
-        // });
     }; //getTaks
     
     creatTask() {
@@ -61,7 +55,7 @@ export class Task {
             this.taskService.createTask(_task, (d: serverResponseObject) => {
                 if (d.success) {
                     // on scueessfully task inserted
-                    this.taskz.push(d.data);
+                    //if success it means taskService push object into task[]
                 } else {
                     // if task not inserted
                 }

@@ -1,27 +1,19 @@
-<!--<dl>
-    <dt>sdhjkh</dt>
-    <dd>eerhj ejrhwejkrwh jekwhwjkhr wejkrh </dd>
-</dl>-->
-<td>   
-    <label>{{task.name}}</label>
-    <label>{{task.description}}</label>
-    <ul>
-        <li class="commentSelector" *ngFor="#c of task.comments" [comment]="c">  
-        </li>
-    </ul>
-    <div>
-        <form action="">
-            <label for="comment">Please Comment</label>
-            <input type="text" name="description" placeholder="description" #cmnt />
-            <input type="button" name="addComment_Btn"  value="Add" (click)="addComment(cmnt)"/>
-        </form>
-    </div>
-</td>
-<td></td>
 <td>
-    <button type="button">Edit</button> 
-    <strong>|</strong> 
-    <button type="button">Delete</button>
+    <div>
+        <label class="form-label">{{task.name}}</label>  &nbsp;&nbsp;   --   &nbsp;&nbsp; <label class="form-label">{{task.description}}</label>
+    </div>
+    <br />
+    <div *ngIf="task.comments && task.comments.length > 0">
+        <p>
+            <label class="form-label">Comments</label>
+        </p>
+        <dl>
+            <div *ngFor="#c of task.comments">
+                <dt>{{c.comment}}</dt>
+                <dd style="padding-bottom: 10px;"><em>by: {{c.commentBy.name}}, {{c.commentBy.email}}</em></dd>
+            </div>
+        </dl>
+    </div>
 </td>
 
 
@@ -40,6 +32,7 @@
         </form>
     </div>
 </td>
+<td></td>
 <td>
     <button type="button">Edit</button> 
     <strong>|</strong> 

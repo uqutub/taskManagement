@@ -4,7 +4,7 @@ import {SignupService, IUser} from './signupService';
 import {FormBuilder, Validators} from 'angular2/common';
 import {customServerResponseObject as serverResponseObject} from './../helpers/helpers';
 import {ControlMessages} from './../helpers/ControlMessages';
-import {ValidationService} from './../helpers/ValidationService';
+import {ValidationService} from './../services/ValidationService';
 
 import {Router} from 'angular2/router';         //for navigation
 

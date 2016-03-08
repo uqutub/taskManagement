@@ -1,4 +1,4 @@
-System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './../task/taskService', './teamRender/teamRender', 'angular2/common', './../helpers/ValidationService', './../helpers/ControlMessages'], function(exports_1) {
+System.register(["angular2/core", "./../../config", './teamService', './teamModel', './../member/memberService', './../task/taskService', './teamRender/teamRender', 'angular2/common', './../services/ValidationService', './../helpers/ControlMessages'], function(exports_1) {
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
         var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);

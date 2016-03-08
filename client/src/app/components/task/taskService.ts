@@ -11,15 +11,12 @@ export class TaskService {
         // do something with `userService` here	
     };
     
-    getTasks(userid: string, cb?: (d) => void) {                //calling oSignin in memberService
+    getTasks(userid: string) {                //calling on Signin in memberService
         this.httpService.getJSON('/api/task/tasks/'+userid, (resdata: serverResponseObject) => {
             if (resdata.success) {
                 this.userTasks = resdata.data;          //current user task saved in taskService.userTasks
-                console.log('on signin memberservice (taskService)', this.userTasks)
-                //cb({ success: true, error: false, data: resdata.data });
             } else {
                 //if member not created scueessfully
-                //cb({ success: false, error: true, data: null });
             }
         });
     };
@@ -43,6 +40,7 @@ export class TaskService {
         this.httpService.addJSON('/api/task/create', _task, (resdata: serverResponseObject) => {
             if (resdata.success) {
                 //if member created scueessfully
+                this.userTasks.push(resdata.data);
                 cb({ success: true, error: false, data: resdata.data });
             } else {
                 //if member not created scueessfully

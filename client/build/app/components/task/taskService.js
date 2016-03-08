@@ -25,12 +25,11 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                     // do something with `userService` here	
                 }
                 ;
-                TaskService.prototype.getTasks = function (userid, cb) {
+                TaskService.prototype.getTasks = function (userid) {
                     var _this = this;
                     this.httpService.getJSON('/api/task/tasks/' + userid, function (resdata) {
                         if (resdata.success) {
                             _this.userTasks = resdata.data; //current user task saved in taskService.userTasks
-                            console.log('on signin memberservice (taskService)', _this.userTasks);
                         }
                         else {
                         }
@@ -54,9 +53,11 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 ;
                 //createTask
                 TaskService.prototype.createTask = function (_task, cb) {
+                    var _this = this;
                     this.httpService.addJSON('/api/task/create', _task, function (resdata) {
                         if (resdata.success) {
                             //if member created scueessfully
+                            _this.userTasks.push(resdata.data);
                             cb({ success: true, error: false, data: resdata.data });
                         }
                         else {

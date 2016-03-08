@@ -1,6 +1,6 @@
 import {Component, Host} from 'angular2/core';
 import {NgFormModel} from 'angular2/common';
-import {ValidationService} from './ValidationService';
+import {ValidationService} from './../services/ValidationService';
      
 @Component({
     selector: 'control-messages',

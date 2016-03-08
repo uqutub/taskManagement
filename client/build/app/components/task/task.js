@@ -40,6 +40,7 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                     this.taskService = taskService;
                     this.memberService = memberService;
                     this.formBuilder = formBuilder;
+                    //for task form validation
                     this.taskForm = this.formBuilder.group({
                         'name': ['', common_1.Validators.required],
                         'description': ['', common_1.Validators.nullValidator],
@@ -51,17 +52,9 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                 ;
                 Task.prototype.getTasks = function () {
                     this.taskz = this.taskService.getAllCurrentUserTasks();
-                    console.log('on get (task.ts)', this.taskz);
-                    // this.taskService.getTasks(this.memberService._id, (d: serverResponseObject) => {
-                    //     if (d.success) {
-                    //         this.taskz = d.data;
-                    //     } else {
-                    //     }
-                    // });
                 };
                 ;
                 Task.prototype.creatTask = function () {
-                    var _this = this;
                     if (this.taskForm.dirty && this.taskForm.valid) {
                         var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
                         var _task = new taskModel_1.TaskModel();
@@ -74,8 +67,6 @@ System.register(["angular2/core", './taskService', './taskModel', './../member/m
                         _task.status = 1;
                         this.taskService.createTask(_task, function (d) {
                             if (d.success) {
-                                // on scueessfully task inserted
-                                _this.taskz.push(d.data);
                             }
                             else {
                             }
