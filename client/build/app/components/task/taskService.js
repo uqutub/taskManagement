@@ -32,6 +32,8 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                             _this.userTasks = resdata.data; //current user task saved in taskService.userTasks
                         }
                         else {
+                            //if member not created scueessfully
+                            _this.userTasks = null;
                         }
                     });
                 };

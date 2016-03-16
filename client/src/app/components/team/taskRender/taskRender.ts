@@ -25,6 +25,7 @@ export class TaskRender implements OnInit {
     
     //use for after getting task data
     ngOnInit() {
+        if(this.task && this.task._id){
         this.taskService.getSingleTask(this.task._id,(d: serverResponseObject)=>{
             if(d.success){
                 this.task = d.data;
@@ -32,6 +33,7 @@ export class TaskRender implements OnInit {
                 
             }
         });
+        }
     }; //ngOnInit
        
     addComment(txtComment: HTMLInputElement){

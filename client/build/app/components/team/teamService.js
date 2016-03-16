@@ -19,30 +19,38 @@ System.register(['angular2/core', './../services/httpService'], function(exports
                 httpService_1 = httpService_1_1;
             }],
         execute: function() {
+            //var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 };
             TeamService = (function () {
                 //
                 function TeamService(httpService) {
                     // do something with `TeamService` here
                     this.httpService = httpService;
-                    this.name = 'hello';
                 }
-                TeamService.prototype.getTeams = function (userid, cb) {
+                //calling on Signin in memberService
+                TeamService.prototype.getTeams = function (userid) {
+                    var _this = this;
                     this.httpService.getJSON('/api/team/' + userid, function (resdata) {
                         if (resdata.success) {
                             //if member created scueessfully
-                            cb({ success: true, error: false, data: resdata.data });
+                            _this.teams = resdata.data;
                         }
                         else {
                             //if member not created scueessfully
-                            cb({ success: false, error: true, data: null });
+                            _this.teams = null;
                         }
                     });
                 };
                 ;
+                //return team array
+                TeamService.prototype.getAllCurrentUserTeams = function () {
+                    return this.teams;
+                };
                 TeamService.prototype.createTeam = function (team, cb) {
+                    var _this = this;
                     this.httpService.addJSON('/api/team/create', team, function (resdata) {
                         if (resdata.success) {
                             //if member created scueessfully
+                            _this.teams.push(resdata.data);
                             cb({ success: true, error: false, data: resdata.data });
                         }
                         else {
@@ -75,4 +83,3 @@ System.register(['angular2/core', './../services/httpService'], function(exports
         }
     }
 });
-//var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 }; 

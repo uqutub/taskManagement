@@ -4,11 +4,11 @@ import {IMember} from './../member/memberService';
 import {ITeam} from './teamModel';
 import {customServerResponseObject as serverResponseObject, customServerResponseFunction as serverResponseFunction} from './../helpers/helpers';
 
-
+//var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 };
 
 @Injectable()
 export class TeamService {
-    name: string = 'hello';
+    teams: ITeam[];
 
     //
     constructor(private httpService: HttpService) {
@@ -16,22 +16,30 @@ export class TeamService {
         
     }
 
-    getTeams(userid: string, cb?: (d) => void) {
-        this.httpService.getJSON('/api/team/'+userid, function(resdata: serverResponseObject) {
+
+    //calling on Signin in memberService
+    getTeams(userid: string) {
+        this.httpService.getJSON('/api/team/'+userid, (resdata: serverResponseObject) => {
             if (resdata.success) {
                 //if member created scueessfully
-                cb({ success: true, error: false, data: resdata.data });
+                this.teams = resdata.data;
             } else {
                 //if member not created scueessfully
-                cb({ success: false, error: true, data: null });
+                this.teams = null;
             }
         });
     }; //getTeams
+
+    //return team array
+    getAllCurrentUserTeams(): ITeam[] {
+        return this.teams;
+    }
 
     createTeam(team: ITeam, cb: serverResponseFunction) {
         this.httpService.addJSON('/api/team/create', team, (resdata: serverResponseObject) => {
             if (resdata.success) {
                 //if member created scueessfully
+                this.teams.push(resdata.data);
                 cb({ success: true, error: false, data: resdata.data });
             } else {
                 //if member not created scueessfully
@@ -55,4 +63,3 @@ export class TeamService {
 } //TeamService
 
 
-//var team: ITeam = { name: "TeamA", description: "Team A Description", owner: ownerMember, active: 1 };

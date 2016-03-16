@@ -42,13 +42,15 @@ System.register(["angular2/core", "./../../../config", './../../task/taskService
                 //use for after getting task data
                 TaskRender.prototype.ngOnInit = function () {
                     var _this = this;
-                    this.taskService.getSingleTask(this.task._id, function (d) {
-                        if (d.success) {
-                            _this.task = d.data;
-                        }
-                        else {
-                        }
-                    });
+                    if (this.task && this.task._id) {
+                        this.taskService.getSingleTask(this.task._id, function (d) {
+                            if (d.success) {
+                                _this.task = d.data;
+                            }
+                            else {
+                            }
+                        });
+                    }
                 };
                 ;
                 TaskRender.prototype.addComment = function (txtComment) {

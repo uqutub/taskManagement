@@ -28,6 +28,7 @@ export class Team {
     memberForm: any;
     tasks: ITask[];
     members: IMember[];
+    _tempUsers: string[] = [];
     
     //constructor
     constructor(private teamService: TeamService, private memberService: MemberService, private formBuilder: FormBuilder, private taskService: TaskService ) {
@@ -47,32 +48,41 @@ export class Team {
         //get all tasks of current user
         this.tasks = this.taskService.getAllCurrentUserTasks();
         
-        //get teams...
+        //get all teams...
         this.getTeams();
     }
 
     getTeams(){
-        this.teamService.getTeams(this.memberService._id, (d: serverResponseObject)=>{
-            if(d.success){
-               this.teams = d.data; 
-            } else {
-                
-            }
-        });
-        this.teams = [];    //teams Array for current user...
+        //teams Array for current user...
+        this.teams = this.teamService.getAllCurrentUserTeams();
+
     }; //getTeams
     
-    createTeam(name: HTMLInputElement, description: HTMLInputElement) {
-        
+    createTeam() {
         if (this.teamForm.dirty && this.teamForm.valid) { 
-
             let _owner: IMember = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
 
             let _members = []; 
             _members.push(_owner);
             
             let _tasks = [];
-            (this.teamForm.value.task == '-1') ? [] : _tasks.push(this.teamForm.value.task);
+
+            console.log('createTeam Runn');
+
+            //(this.teamForm.value.task == '-1') ? [] : _tasks.push(this.teamForm.value.task);
+            if (this.teamForm.value.task == '-1') {
+                _tasks = [];
+            } else {
+                for (var i = 0; i <= this.tasks.length; i++) {
+                    if (this.tasks[i]._id == this.teamForm.value.task) {
+                        _tasks.push({
+                            _id: this.tasks[i]._id, name: this.tasks[i].name
+                        });
+                        break;
+                    }
+                }
+            }  
+
 
             let _team = new TeamModel();
             _team.name = this.teamForm.value.name;
@@ -81,12 +91,11 @@ export class Team {
             _team.members = _members;
             _team.tasks = _tasks;
             _team.active = 1
-            
+            console.log('createTeam Runn');
             this.teamService.createTeam(_team, (d: serverResponseObject) => {
-                console.log('team return, ', JSON.stringify(d.data));
                 if(d.success){
                     //if team scueessfully created
-                    this.teams.push(d.data);
+                    //this.teams.push(d.data);
                 } else {
                     //if not scueessfully created then do what ever to do, even do double, but don't trouble your mother....
                 }
@@ -100,10 +109,30 @@ export class Team {
     }; //createTeam
     
     addMember() {
-        
+
         if (this.memberForm.dirty && this.memberForm.valid) { 
+
+            //first checking member is already exists or not, if not then add in array
+            if (this._tempUsers.length > 0) {
+                for (var i = 0; i <= this._tempUsers.length; i++) {
+                    if (this._tempUsers[i] === this.memberForm.value.member){
+                        alert('Member already Added');
+                        break;
+                    }
+                    if (i === this._tempUsers.length) {
+                       this._tempUsers.push(this.memberForm.value.member);
+                    }
+                }
+            } else {
+                this._tempUsers.push(this.memberForm.value.member);
+            }
             
         } //if this.memberForm.dirty
+
+
+        return false;
+
+       
         
     }; //addMember
     

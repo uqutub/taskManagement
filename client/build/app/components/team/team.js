@@ -50,6 +50,7 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     this.memberService = memberService;
                     this.formBuilder = formBuilder;
                     this.taskService = taskService;
+                    this._tempUsers = [];
                     //getting current loggedin user/member
                     var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
                     this.teamForm = this.formBuilder.group({
@@ -62,29 +63,35 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                     });
                     //get all tasks of current user
                     this.tasks = this.taskService.getAllCurrentUserTasks();
-                    //get teams...
+                    //get all teams...
                     this.getTeams();
                 }
                 Team.prototype.getTeams = function () {
-                    var _this = this;
-                    this.teamService.getTeams(this.memberService._id, function (d) {
-                        if (d.success) {
-                            _this.teams = d.data;
-                        }
-                        else {
-                        }
-                    });
-                    this.teams = []; //teams Array for current user...
+                    //teams Array for current user...
+                    this.teams = this.teamService.getAllCurrentUserTeams();
                 };
                 ;
-                Team.prototype.createTeam = function (name, description) {
-                    var _this = this;
+                Team.prototype.createTeam = function () {
                     if (this.teamForm.dirty && this.teamForm.valid) {
                         var _owner = { _id: this.memberService._id, name: this.memberService.name, email: this.memberService.email };
                         var _members = [];
                         _members.push(_owner);
                         var _tasks = [];
-                        (this.teamForm.value.task == '-1') ? [] : _tasks.push(this.teamForm.value.task);
+                        console.log('createTeam Runn');
+                        //(this.teamForm.value.task == '-1') ? [] : _tasks.push(this.teamForm.value.task);
+                        if (this.teamForm.value.task == '-1') {
+                            _tasks = [];
+                        }
+                        else {
+                            for (var i = 0; i <= this.tasks.length; i++) {
+                                if (this.tasks[i]._id == this.teamForm.value.task) {
+                                    _tasks.push({
+                                        _id: this.tasks[i]._id, name: this.tasks[i].name
+                                    });
+                                    break;
+                                }
+                            }
+                        }
                         var _team = new teamModel_1.TeamModel();
                         _team.name = this.teamForm.value.name;
                         _team.description = this.teamForm.value.description;
@@ -92,11 +99,9 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                         _team.members = _members;
                         _team.tasks = _tasks;
                         _team.active = 1;
+                        console.log('createTeam Runn');
                         this.teamService.createTeam(_team, function (d) {
-                            console.log('team return, ', JSON.stringify(d.data));
                             if (d.success) {
-                                //if team scueessfully created
-                                _this.teams.push(d.data);
                             }
                             else {
                             }
@@ -107,7 +112,23 @@ System.register(["angular2/core", "./../../config", './teamService', './teamMode
                 ;
                 Team.prototype.addMember = function () {
                     if (this.memberForm.dirty && this.memberForm.valid) {
+                        //first checking member is already exists or not, if not then add in array
+                        if (this._tempUsers.length > 0) {
+                            for (var i = 0; i <= this._tempUsers.length; i++) {
+                                if (this._tempUsers[i] === this.memberForm.value.member) {
+                                    alert('Member already Added');
+                                    break;
+                                }
+                                if (i === this._tempUsers.length) {
+                                    this._tempUsers.push(this.memberForm.value.member);
+                                }
+                            }
+                        }
+                        else {
+                            this._tempUsers.push(this.memberForm.value.member);
+                        }
                     } //if this.memberForm.dirty
+                    return false;
                 };
                 ;
                 Team = __decorate([

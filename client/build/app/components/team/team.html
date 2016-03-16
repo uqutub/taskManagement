@@ -31,11 +31,11 @@
                 <control-messages control="task" class="text-danger"></control-messages>
             </div>
             <div class="form-group">
-                <form   [ngFormModel]="memberForm" (submit)="addMember()">
+                <form [ngFormModel]="memberForm" (submit)="addMember()">
                     <label for="member">Member</label>
                     <div class="form-inline">
                         <input type="email" class="form-control" id="member" name="member" placeholder="Email" ngControl="member">
-                        <button type="button" class="btn btn-primary" [disabled]="!memberForm.valid">Add</button>
+                        <button type="submit" class="btn btn-primary" [disabled]="!memberForm.valid">Add</button>
                     </div>
                     <control-messages control="member" class="text-danger"></control-messages>
                 </form>

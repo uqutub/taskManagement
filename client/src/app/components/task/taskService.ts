@@ -17,6 +17,7 @@ export class TaskService {
                 this.userTasks = resdata.data;          //current user task saved in taskService.userTasks
             } else {
                 //if member not created scueessfully
+                this.userTasks = null;
             }
         });
     };

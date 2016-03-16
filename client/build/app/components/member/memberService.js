@@ -43,7 +43,8 @@ System.register(['angular2/core', './../services/httpService', './../task/taskSe
                     this.email = member.email;
                     this.isLoggedin = true;
                     //now getting current user tasks
-                    this.taskService.getTasks(this._id); ///load all tasks of current users
+                    this.taskService.getTasks(this._id); ///load all tasks of current user
+                    this.teamService.getTeams(this._id); ///load all teams of current user
                     //now getting current user teams
                 }; //onSingin
                 MemberService.prototype.onSignout = function () {
